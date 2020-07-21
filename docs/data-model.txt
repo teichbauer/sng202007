@@ -1,0 +1,93 @@
+1. ID field
+In stead of _id of MongoDB type, I will use custom-id: a string composed of
+  db-name: char(4)  # this can be used for each customer - 33 cupper cased
+                    # [A-Z1-9] without I,O. Giving 33**4 = >1 million
+                    # a seperate db for each customer, with these 4 char string
+  category: char(2) # 33*33 = 1089 categories possible
+  reserved: char(2) # open for future
+  timestamp:c(13)   # mil sec from Date.getTime(). Time of creation.
+This will be 21 char long.
+When I do save, and this ID happen to be duplicate (within 1 milsec window,
+two user save with the same db-name/cat/..), the fail error will trigger:
+wait(1 milsec), and re-try.
+
+Example:
+  FT13I1XX1566665432092
+  ^^^^                  -> customer(db) name
+      ^^                -> Category
+        ^^              -> reserved
+          ^^^^^^^^^^^^^ -> time stamp from Date.getTime() - milisec count
+---------------------------
+General:
+    Text-String: (TS)
+        quoted string of ASCII. May have delimiter: |:| to be segmented into
+        substrings.
+        a substring may have, at its beginning, a locale mark: 'en:', 'zh:',..
+        If this locale-mark is missing, a system-wide defined default language
+        is taken to usage.
+        The substring is b64-encoded from original description taken from
+        real-world.
+-------
+
+
+Categories
+Every instance of the following categroies, will have
+  _id:   ID field defined as in 1. - IT or PA
+  synop: TS
+  rels: [RL]
+  dscs: [DC]
+  Txs:  [TX]
+
+
+1.1 Item: IT
+    I1: physical entity. countable instance of I2
+    I2: classification. Can be instanciated resulting I1
+    I3: Cencept. Cannot be instanciated. Ideas, styles,..
+
+1.2 Organization(human of human group): PA
+    P1: individual person
+    P2: person-group
+    P3: institution
+--------
+
+
+1.3 relationships: RL
+Every RL document has
+  _id:   ID field defined as in 1.
+  synop: TS
+  dscs: [DC]
+  txs:  [TX]
+
+    R1: part of
+    R2: associated-with
+    R3: owned by
+    R4: related to
+---------
+1.4 Description: DC
+Every DC document has
+  _id:   ID field defined as in 1.
+  synop: TS
+  rels: [RL]
+  txs:  [TX]
+
+    D1: documentation
+    D2: process description
+    D3: property-pack
+    D4: location
+    D5: time-periods
+---------
+1.5 Transactions TX
+Every TX document has
+  _id:   ID field defined as in 1.
+  rels: [RL]
+  dcsc: [DC]
+
+    T1: order state
+    T2: task state
+    T3: livelyhood state
+
+
+
+
+
+

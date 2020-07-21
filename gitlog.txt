@@ -1,0 +1,33 @@
+20200721
+- duplicate from mern project.
+- changed log.txt to log.md - hope to use markdown.
+- use a mongo image container, that has 27017 exposed/mapped to
+  localhost:27017. DB name: sng
+20200717
+- learn the step to build client and deploy. See log.txt/2020-07-17
+20200716
+- finished "Learn the MERN stack[7]" connected to server /mongodbS
+20200715
+- wrote commects to nail down my understanding.
+20200715
+- finished "Learn the MERN stack[6]"
+20200715
+- finished "Learn the MERN stack[5]" I see the GET_ITEM actio appearing in
+  Chrome/dev-tools/redux.
+20200714
+- finished "Learn the MERN stack[4]"
+- added some more data-model design in data-model.txt
+20200713a
+- finished "Learn the MERN stack[3]"
+20200713
+- created client folder for developing react front-end. Following the YouTube
+  tutorial "Learn the MERN statk" (Traversy Media)
+20200713
+- finished the Tutorial part[1]. And learned something about MongoDB, and a good
+  tool postman. I installed postman and also online atlas-Mongodb. And
+  read about mongoose. Put some thoughts in docs/data-model.txt
+20200712
+- added a {useNewUrlParse: true} object to the mongoos.connect call. This would
+  suppress deprecation warnings... says the mongoose homepage.
+20200710
+- "Learn the MERN stack" by Traversy Media [1]

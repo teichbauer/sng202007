@@ -1,0 +1,159 @@
+2020-07-14
+from "Learn the MERN stack[4]/ShoppingList.js
+----------------------
+In ShoppingList.js:36
+ items.map(({id, name}) => ())
+1. In js, {id, name} is the same as {id:id, name: name}, the () arround it
+   is for this object to be a single parameter for the map function, which
+   demands a single parameter.
+2. The right side of the fat-arrow '=>', normally is a function body,
+   marked by {}. But with () on this level, denote: this is an expression
+   to be returned, not a function body to be run.
+----------------------
+In ShoppingList.js:42 - 46
+  onClick={() => {
+      this.setState(state => ({
+                    items: state.items.filter(item => item.id !== id) }
+                             )
+                   );
+                 }
+          }
+The parentheses immediately surrounding that is mandatory to indicate that the
+above braces represent an object literal instead of a function body. This
+distinction is necessary because the right hand side of a "fat arrow" (=>) can
+either be a proper function body (surrounded by braces) or an expression
+(which is an implicit return). In the latter case, it's possible for that
+expression to be an object literal, which will be confusing for the parser
+(I'm sure the TC 39 committee studied the language grammar and concluded that
+it's not possible for the parser to distinguish the two use cases without the
+help of explicit parentheses).
+----------------------
+bootstrap
+v4.5 is used.
+As I read from Web: 5.0 is pending - right now(2020-07) is in Alpha.
+v5.0 will drop out jQuery, and will also have the possibility of
+use (Google) Material-design style. So it seems I could adopt it.
+My prev displike of bootstrap was mainly because of the usage of jQuery,
+and also, I would like to use Material. These are open now. So...
+
+reactstrap
+https://reactstrap.github.io/
+
+react-transition-group:
+http://reactcommunity.org/react-transition-group/transition-group
+
+
+2020-07-15
+-----------
+About the parameter of connect import from react-redux:
+connect() Parameters
+connect accepts four different parameters, all optional. By convention, they are called:
+1.
+mapStateToProps?: Function
+mapDispatchToProps?: Function | Object
+mergeProps?: Function
+options?: Object
+mapStateToProps?: (state, ownProps?) => Object
+If a mapStateToProps function is specified, the new wrapper component will subscribe to Redux store updates. This means that any time the store is updated, mapStateToProps will be called. The results of mapStateToProps must be a plain object, which will be merged into the wrapped component’s props. If you don't want to subscribe to store updates, pa
+ss null or undefined in place of mapStateToProps.
+
+Parameters
+state: Object
+ownProps?: Object
+A mapStateToProps function takes a maximum of two parameters. The number of declared function parameters (a.k.a. arity) affects when it will be called. This also determines whether the function will receive ownProps. See notes here.
+
+state
+If your mapStateToProps function is declared as taking one parameter, it will be called whenever the store state changes, and given the store state as the only parameter.
+
+  const mapStateToProps = state => ({ todos: state.todos })
+
+ownProps
+If your mapStateToProps function is declared as taking two parameters, it will be called whenever the store state changes or when the wrapper component receives new props (based on shallow equality comparisons). It will be given the store state as the first parameter, and the wrapper component's props as the second parameter.
+
+The second parameter is normally referred to as ownProps by convention.
+
+  const mapStateToProps = (state, ownProps) => ({
+    todo: state.todos[ownProps.id]
+  })
+
+Returns
+Your mapStateToProps functions are expected to return an object. This object, normally referred to as stateProps, will be merged as props to your connected component. If you define mergeProps, it will be supplied as the first parameter to mergeProps.
+
+The return of the mapStateToProps determine whether the connected component will re-render (details here).
+
+For more details on recommended usage of mapStateToProps, please refer to our guide on using mapStateToProps.
+
+You may define mapStateToProps and mapDispatchToProps as a factory function, i.e., you return a function instead of an object. In this case your returned function will be treated as the real mapStateToProps or mapDispatchToProps, and be called in subsequent calls. You may see notes on Factory Functions or our guide on performance optimizations.
+
+-----
+2.
+mapDispatchToProps?: Object | (dispatch, ownProps?) => Object
+Conventionally called mapDispatchToProps, this second parameter to connect() may either be an object, a function, or not supplied.
+
+Your component will receive dispatch by default, i.e., when you do not supply a second parameter to connect():
+
+  // do not pass `mapDispatchToProps`
+  connect()(MyComponent)
+  connect(mapState)(MyComponent)
+  connect(
+    mapState,
+    null,
+    mergeProps,
+    options
+  )(MyComponent)
+
+If you define a mapDispatchToProps as a function, it will be called with a maximum of two parameters.
+
+Parameters
+dispatch: Function
+ownProps?: Object
+dispatch
+If your mapDispatchToProps is declared as a function taking one parameter, it will be given the dispatch of your store.
+
+  const mapDispatchToProps = dispatch => {
+    return {
+      // dispatching plain actions
+      increment: () => dispatch({ type: 'INCREMENT' }),
+      decrement: () => dispatch({ type: 'DECREMENT' }),
+      reset: () => dispatch({ type: 'RESET' })
+    }
+  }
+
+ownProps
+If your mapDispatchToProps function is declared as taking two parameters, it will be called with dispatch as the first parameter and the props passed to the wrapper component as the second parameter, and will be re-invoked whenever the connected component receives new props.
+
+The second parameter is normally referred to as ownProps by convention.
+
+  // binds on component re-rendering
+  <button onClick={() => this.props.toggleTodo(this.props.todoId)} />
+
+  // binds on `props` change
+  const mapDispatchToProps = (dispatch, ownProps) => {
+    toggleTodo: () => dispatch(toggleTodo(ownProps.todoId))
+  }
+
+The number of declared function parameters of mapDispatchToProps determines whether they receive ownProps. See notes here.
+
+Returns
+Your mapDispatchToProps functions are expected to return an object. Each fields of the object should be a function, calling which is expected to dispatch an action to the store.
+
+The return of your mapDispatchToProps functions are regarded as dispatchProps. It will be merged as props to your connected component. If you define mergeProps, it will be supplied as the second parameter to mergeProps.
+
+  const createMyAction = () => ({ type: 'MY_ACTION' })
+  const mapDispatchToProps = (dispatch, ownProps) => {
+    const boundActions = bindActionCreators({ createMyAction }, dispatch)
+    return {
+      dispatchPlainObject: () => dispatch({ type: 'MY_ACTION' }),
+      dispatchActionCreatedByActionCreator: () => dispatch(createMyAction()),
+      ...boundActions,
+      // you may return dispatch here
+      dispatch
+    }
+  }
+
+For more details on recommended usage, please refer to our guide on using mapDispatchToProps.
+
+You may define mapStateToProps and mapDispatchToProps as a factory function, i.e., you return a function instead of an object. In this case your returned function will be treated as the real mapStateToProps or mapDispatchToProps, and be called in subsequent calls. You may see notes on Factory Functions or our guide on performance optimizations.
+
+2020-07-17
+----------

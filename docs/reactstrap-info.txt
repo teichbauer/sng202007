@@ -1,0 +1,35 @@
+2020-07-15
+----------------------
+Button / Navbar color
+https://reactstrap.github.io/components/buttons/
+I can find what color can be of choice:
+ ## bg: sky-blue, txt: white
+<Button color="primary">primary</Button>{' '}
+
+ ## bg: gray, txt: white
+<Button color="secondary">secondary</Button>{' '}
+
+ ## bg: grenn, txt: white
+<Button color="success">success</Button>{' '}
+
+ ## bg: turk-green, txt: white
+<Button color="info">info</Button>{' '}
+
+ ## bg: orange, txt: black
+<Button color="warning">warning</Button>{' '}
+
+ ## bg: red, txt: white
+<Button color="danger">danger</Button>{' '}
+
+ ## bg: transparent, txt: blue
+<Button color="link">link</Button>
+
+Although not mentioned here, but I used color="dark" for
+"Shopping List Navbar, and button.
+
+Similarly, I can find info about Modal at
+https://reactstrap.github.io/components/buttons/
+
+So, url
+https://reactstrap.github.io/components
+is the place to go to find reactstrap components
