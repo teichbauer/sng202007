@@ -7,3 +7,5 @@ docs
 log.md
 
 client/node_modules
+
+client/build
