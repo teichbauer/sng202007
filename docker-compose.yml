@@ -1,0 +1,17 @@
+version: "3"
+    
+services:
+    dbservice:
+        image: "mongo:4.2.8"
+        ports:
+            - "27017:27017"
+        volumes:
+            - sngdata:/data/db
+
+    nodeservice:
+        build: .
+        ports:
+            - "5000:5000"
+
+volumes:
+    sngdata:

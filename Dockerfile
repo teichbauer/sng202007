@@ -1,6 +1,6 @@
 FROM node:12.18.2
 
-WORKDIR /var/sng
+WORKDIR /var/dw
 
 COPY ./package.json ./
 

@@ -6,5 +6,7 @@ module.exports = {
     // my localhost mongodb connection string is:
     // (verified to work)
     // ------------------
-    mongoURI: 'mongodb://localhost:27017/sng'
+    // mongoURI: 'mongodb://localhost:27017/dw'
+    mongoURI: 'mongodb://dbservice:27017/mern'
+
 }
