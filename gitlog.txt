@@ -1,4 +1,6 @@
 20200721
+- progress on Dockerfile, docker-compose.yml
+20200721
 - duplicate from mern project.
 - changed log.txt to log.md - hope to use markdown.
 - use a mongo image container, that has 27017 exposed/mapped to

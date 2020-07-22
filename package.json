@@ -1,5 +1,5 @@
 {
-  "name": "mern",
+  "name": "sng-saas",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -7,6 +7,7 @@
     "client-install": "npm install --prefix client",
     "start": "node server.js",
     "server": "nodemon server.js",
+    "client-build": "npm run build --prefix client",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
@@ -23,7 +24,7 @@
   },
   "comments": {
     "use script / server or start": "npm run server, or npm run start",
-    "npm start --prefix client":  "will run the 'npm start' in client folder",
+    "npm start --prefix client": "will run the 'npm start' in client folder",
     "dev": "runs the two quoted cmds concurrently, using 'concurrently' module",
     "client-install": "when move to a new place, run this to install client",
     "client-install-cont": "to install client side dependancies"
