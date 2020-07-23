@@ -1,3 +1,5 @@
+0.24-20200722
+- start coding for models
 0.23-20200722
 - updated .gitignore and .dockerignore
 0.22-20200722

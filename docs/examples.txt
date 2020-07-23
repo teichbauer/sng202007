@@ -1,0 +1,6 @@
+About id:
+4 char - customer: ORG1
+3 char category
+6 reserved. As for now, make them random. Later if needed, I can put 
+  5, 4, 3 or 2 letters at the front, and let the rest be random.
+13 time stamp from (new Date()).getTime(), which is milsec epoche time.

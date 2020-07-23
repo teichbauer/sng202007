@@ -12,12 +12,12 @@ two user save with the same db-name/cat/..), the fail error will trigger:
 wait(1 milsec), and re-try.
 
 Example:
-  FT13I1XX1566665432092
-  ^^^^                  -> customer(db) name
-      ^^                -> Category
-        ^^              -> reserved
-          ^^^^^^^^^^^^^ -> time stamp from Date.getTime() - milisec count
----------------------------
+  FT13I12XX1566665432092
+  ^^^^                   -> customer(db) name 4 chars
+      ^^^                -> Category 3 chars
+         ^^              -> reserved 2
+           ^^^^^^^^^^^^^ -> time stamp from Date.getTime() - 13 milisec count
+------------------------- total: 22
 General:
     Text-String: (TS)
         quoted string of ASCII. May have delimiter: |:| to be segmented into
