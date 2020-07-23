@@ -5,6 +5,10 @@ const path = require('path');
 
 const items = require('./routes/api/items');
 
+// import init-function for initiate metas into db
+const metaInit = require('./models/Meta').metaInit;
+
+
 const app = express();
 
 //BodyParser MiddleWare
@@ -35,6 +39,8 @@ app.use('/api/items', items);  // a route I defined under api/
 //if(process.env.NODE_ENV === 'production'){
 // app.use(express.static('client/build'));
 app.get('/index.html', (req, res) => {
+    console.log("initiating metas into db...")
+    metaInit();
     app.use(express.static('client/build'));
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
 })

@@ -3,88 +3,82 @@ In stead of _id of MongoDB type, I will use custom-id: a string composed of
   db-name: char(4)  # this can be used for each customer - 33 cupper cased
                     # [A-Z1-9] without I,O. Giving 33**4 = >1 million
                     # a seperate db for each customer, with these 4 char string
-  category: char(2) # 33*33 = 1089 categories possible
-  reserved: char(2) # open for future
+  category: char(3) # 33*33 = 1089 categories possible
+  reserved: char(6) # open
   timestamp:c(13)   # mil sec from Date.getTime(). Time of creation.
-This will be 21 char long.
+This will be 26 char long.
 When I do save, and this ID happen to be duplicate (within 1 milsec window,
 two user save with the same db-name/cat/..), the fail error will trigger:
 wait(1 milsec), and re-try.
 
 Example:
-  FT13I12XX1566665432092
-  ^^^^                   -> customer(db) name 4 chars
-      ^^^                -> Category 3 chars
-         ^^              -> reserved 2
-           ^^^^^^^^^^^^^ -> time stamp from Date.getTime() - 13 milisec count
-------------------------- total: 22
+  FT13I12XXXXXX1566665432092
+  ^^^^                       -> customer(db) name 4 chars
+      ^^^                    -> Category 3 chars
+         ^^^^^^              -> reserved 6 random chars, if not used
+               ^^^^^^^^^^^^^ -> time stamp by Date.getTime() - 13 chars milisec
+------------------------------- total: 26
 General:
-    Text-String: (TS)
-        quoted string of ASCII. May have delimiter: |:| to be segmented into
-        substrings.
-        a substring may have, at its beginning, a locale mark: 'en:', 'zh:',..
+    Text-String, as used in desciption (sinfo in EntitySchema), or else, is a
+        quoted string of ASCII(base64 encoded). It may have delimiter: 
+        || to be segmented into
+        substrings. A substring may have, at its beginning, a locale mark: 
+        'en:', 'zh:',..
         If this locale-mark is missing, a system-wide defined default language
         is taken to usage.
         The substring is b64-encoded from original description taken from
         real-world.
+    MongoDB: by default, each document max 16MB in size.
+    I will create media folder for each custid(db), where media files are saved.
+    In DC object(or could be somewhere else?), for a media file file-path 
+    will point to its media/* location.
+    Inside a MongoDB doc, 16 MB is enough for any non-media data.
 -------
 
+Relationship tags: 
+a meta entity for tagging the relationships between "real" entities.
+  RLT-000100: tag: RL100  see comments in _init_Rlt defined in Meta.js 
+  RLT-000200: tag: RL200  ...
+  ...
+  RLT-000900: tag: RL900 ...
 
-Categories
+Entity Categories
 Every instance of the following categroies, will have
   _id:   ID field defined as in 1. - IT or PA
-  synop: TS
-  rels: [RL]
-  dscs: [DC]
-  Txs:  [TX]
+  sinfo: Text-String - see above
+  data: {} Mongoose.Schema.Mixed type - a js object. 
+        Optional: PB has it, all other Entity don't have it.
+  reldict: {} Mongoose.Schema.Mixed type - a js object.
+      the key of each entry in this dictionary, is a string, in the format of:
+      "RL100" or "RL200 RL300 RL900", denoting the refered entity's relationship
+      to the containing entity.
 
 
 1.1 Item: IT
-    I1: physical entity. countable instance of I2
-    I2: classification. Can be instanciated resulting I1
-    I3: Cencept. Cannot be instanciated. Ideas, styles,..
+    IT1: physical entity. countable instance of I2
+    IT2: classification. Can be instanciated resulting I1
+    IT3: Cencept. Cannot be instanciated. Ideas, styles,..
 
 1.2 Organization(human of human group): PA
-    P1: individual person
-    P2: person-group
-    P3: institution
---------
+    PA1: individual person
+    PA2: person-group
+    PA3: institution
 
+1.3 Description, or Documentation: DC
+    DC1: documentation
+    DC2: process description
+    DC3: property-pack
+    DC4: location
+    DC5: time-periods
 
-1.3 relationships: RL
-Every RL document has
-  _id:   ID field defined as in 1.
-  synop: TS
-  dscs: [DC]
-  txs:  [TX]
+1.4 Account access: AC
+    AC1: personal account
+    AC2: group account 
 
-    R1: part of
-    R2: associated-with
-    R3: owned by
-    R4: related to
----------
-1.4 Description: DC
-Every DC document has
-  _id:   ID field defined as in 1.
-  synop: TS
-  rels: [RL]
-  txs:  [TX]
-
-    D1: documentation
-    D2: process description
-    D3: property-pack
-    D4: location
-    D5: time-periods
----------
-1.5 Transactions TX
-Every TX document has
-  _id:   ID field defined as in 1.
-  rels: [RL]
-  dcsc: [DC]
-
-    T1: order state
-    T2: task state
-    T3: livelyhood state
+1.5 Action, Transaction: AT
+    AT1: order state
+    AT2: task state
+    AT3: livelyhood state
 
 
 
