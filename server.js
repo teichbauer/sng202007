@@ -6,8 +6,8 @@ const path = require('path');
 const items = require('./routes/api/items');
 
 // import init-function for initiate metas into db
-const metaInit = require('./models/Meta').metaInit;
-
+// const metaInit = require('./models/Meta').metaInit;
+const Util = require('./models/util').Util;
 
 const app = express();
 
@@ -20,16 +20,18 @@ const db = require('./config/keys').mongoURI;
 // const db = 'mongodb://localhost:27017/mern';
 
 // Connect to mongo
-mongoose.connect(db, {
-    useNewUrlParser: true
-    , useCreateIndex: true
-    // , useUnifiedTopology: true
-})
+mongoose.connect(db, 
+    {
+        useNewUrlParser: true
+        , useCreateIndex: true
+        , useUnifiedTopology: true
+    })
     .then(() => console.log('MongoDB connected..'))
     .catch(err => {
         console.log("DB connection failed.")
         console.log(err);
-    });
+    }
+);
 
 // Use Routes
 app.use('/api/items', items);  // a route I defined under api/
@@ -40,7 +42,9 @@ app.use('/api/items', items);  // a route I defined under api/
 // app.use(express.static('client/build'));
 app.get('/index.html', (req, res) => {
     console.log("initiating metas into db...")
-    metaInit();
+    const util = new Util(mongoose.connection.db);
+    util.make_rlts();
+    console.log('u.make_rlts called.s');
     app.use(express.static('client/build'));
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
 })

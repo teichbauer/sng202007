@@ -10,7 +10,7 @@ const Util = require('./util').Util;
 const Schema = mongoose.Schema;
 
 // Create Schema for relational tag
-const RltSchema = new Schema({
+const RlSchema = new Schema({
     _id: {
         type: String, // <4>-<3>-<6>-<13>, total: 26 chars
         required: true
@@ -60,56 +60,59 @@ const EntitySchema = new Schema({
 });
 
 const _init_Rlt = () => {
-    let Tag = mongoose.model('rlt', RltSchema);
+    let Tag = mongoose.model('rlt', RlSchema);
     let util = new Util();
     let tag;
     // generate_id with useTS: false, not time-stamp
     // they are unique already
-    // ------000100
-    tag = new Tag({
-        _id: util.generate_id('META','RLT','000100',false),
-        descr: 'part-of'
+    rtls.forEach(rlt => {
+        tag = new Tag({
+            _id: util.generate_id('META','RLT',rlt.subtype,false,false),
+            descr: rlt.descr
+        });
+        tag.save().then(t => {console.log(`saved in db: ${t}`)});
     });
-    tag.save().then(t => {console.log(`saved in db: ${t}`)});
-    // ------000200
-    tag = new Tag({
-        _id: util.generate_id('META','RLT','000200',false),
-        descr: 'made-by'
-    });
-    tag.save().then(t => {console.log(`saved in db: ${t}`)});
-    // ------000300
-    tag = new Tag({
-        _id: util.generate_id('META','RLT','000300',false),
-        descr: 'reporting-to'
-    });
-    tag.save().then(t => {console.log(`saved in db: ${t}`)});
-    // ------000400
-    tag = new Tag({
-        _id: util.generate_id('META','RLT','000400',false),
-        descr: 'describing'
-    });
-    tag.save().then(t => {console.log(`saved in db: ${t}`)});
-    // ------000500
-    tag = new Tag({
-        _id: util.generate_id('META','RLT','000500',false),
-        descr: 'associated-with'
-    });
-    tag.save().then(t => {console.log(`saved in db: ${t}`)});
-    // ------000600
-    tag = new Tag({
-        _id: util.generate_id('META','RLT','000600',false),
-        descr: 'partnership-with'
-    });
-    tag.save().then(t => {console.log(`saved in db: ${t}`)});
-}; // ------------ end of _init_Rlt ----------------
 
-const metaInit = () => {
-    _init_Rlt();
-}
+    // // ------000100
+    // tag = new Tag({
+    //     // subtype: '0100', rs: false, TS false
+    //     _id: util.generate_id('META','RLT','0100',false,false),
+    //     descr: 'part-of'
+    // });
+    // tag.save().then(t => {console.log(`saved in db: ${t}`)});
+    // // ------000200
+    // tag = new Tag({
+    //     _id: util.generate_id('META','RLT','0200',false,false),
+    //     descr: 'made-by'
+    // });
+    // tag.save().then(t => {console.log(`saved in db: ${t}`)});
+    // // ------000300
+    // tag = new Tag({
+    //     _id: util.generate_id('META','RLT','0300',false,false),
+    //     descr: 'reporting-to'
+    // });
+    // tag.save().then(t => {console.log(`saved in db: ${t}`)});
+    // // ------000400
+    // tag = new Tag({
+    //     _id: util.generate_id('META','RLT','0400',false,false),
+    //     descr: 'describing'
+    // });
+    // tag.save().then(t => {console.log(`saved in db: ${t}`)});
+    // // ------000500
+    // tag = new Tag({
+    //     _id: util.generate_id('META','RLT','0500',false,false),
+    //     descr: 'associated-with'
+    // });
+    // tag.save().then(t => {console.log(`saved in db: ${t}`)});
+    // // ------000600
+    // tag = new Tag({
+    //     _id: util.generate_id('META','RLT','0600',false,false),
+    //     descr: 'partnership-with'
+    // });
+    // tag.save().then(t => {console.log(`saved in db: ${t}`)});
+};  // ------------ end of _init_Rlt ----------------
 
 module.exports = {
-    // metaInit() will initialize relationship tags in DB
-    metaInit: metaInit,
     // For each, mongoose will create a collection, the name of it
     // will be the plural of the 2-char used here: it -> its,... 
     // --------------------------------------------------------------
@@ -125,6 +128,9 @@ module.exports = {
     AT: mongoose.model('ac', EntitySchema),
     // PB for parameter-/data-block
     PB: mongoose.model('pb', EntitySchema),
+    // RL: relationship
+    RL: mongoose.model('rl', RlSchema),
+    RLT: mongoose.model('rlt', RlSchema),
     // LG for logging record
     LG: mongoose.model.toString('lg', LgSchema)
 };

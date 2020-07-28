@@ -1,4 +1,3 @@
-1. ID field
 In stead of _id of MongoDB type, I will use custom-id: a string composed of
   db-name: char(4)  # this can be used for each customer - 33 cupper cased
                     # [A-Z1-9] without I,O. Giving 33**4 = >1 million
@@ -11,7 +10,6 @@ When I do save, and this ID happen to be duplicate (within 1 milsec window,
 two user save with the same db-name/cat/..), the fail error will trigger:
 wait(1 milsec), and re-try.
 
-Example:
   FT13I12XXXXXX1566665432092
   ^^^^                       -> customer(db) name 4 chars
       ^^^                    -> Category 3 chars
@@ -33,14 +31,12 @@ General:
     In DC object(or could be somewhere else?), for a media file file-path 
     will point to its media/* location.
     Inside a MongoDB doc, 16 MB is enough for any non-media data.
--------
 
 Relationship tags: 
 a meta entity for tagging the relationships between "real" entities.
   RLT-000100: tag: RL100  see comments in _init_Rlt defined in Meta.js 
   RLT-000200: tag: RL200  ...
   ...
-  RLT-000900: tag: RL900 ...
 
 Entity Categories
 Every instance of the following categroies, will have
@@ -52,7 +48,6 @@ Every instance of the following categroies, will have
       the key of each entry in this dictionary, is a string, in the format of:
       "RL100" or "RL200 RL300 RL900", denoting the refered entity's relationship
       to the containing entity.
-
 
 1.1 Item: IT
     IT1: physical entity. countable instance of I2
@@ -79,9 +74,3 @@ Every instance of the following categroies, will have
     AT1: order state
     AT2: task state
     AT3: livelyhood state
-
-
-
-
-
-
