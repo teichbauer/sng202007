@@ -1,26 +1,57 @@
-const rlts = [
+/**********************************************************
+ * Digital-Work(c) 2020
+ * -----------------------------
+ * Authored: Raymond Wei 2020-07
+ * --------------------------------
+ * rlt.js
+ * ********************************************************/
+const rlts = [ // META-RLT-<subcat>
     {
-        subtype: '0100',
+        subcat: '0100',
+        name: '',
+        title:'',
+        symbol: '',
+        icon: '',
         descr: 'part-of'
     },
     {
-        subtype: '0200',
+        subcat: '0200',
+        name: '',
+        title:'',
+        symbol: '',
+        icon: '',
         descr: 'made-by'
     },
     {
-        subtype: '0300',
+        subcat: '0300',
+        name: '',
+        title:'',
+        symbol: '',
+        icon: '',
         descr: 'reporting-to'
     },
     {
-        subtype: '0400',
+        subcat: '0400',
+        name: '',
+        title:'',
+        symbol: '',
+        icon: '',
         descr: 'describing'
     },
     {
-        subtype: '0500',
+        subcat: '0500',
+        name: '',
+        title:'',
+        symbol: '',
+        icon: '',
         descr: 'associated-with'
     },
     {
-        subtype: '0600',
+        subcat: '0600',
+        name: '',
+        title:'',
+        symbol: '',
+        icon: '',
         descr: 'partnershipt-with'
     },
 ];

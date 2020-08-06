@@ -1,7 +1,7 @@
-const { rlts } = require('./data/rlt');
 const models = require('./Meta');
-
-
+const { rlts } = require('./data/rlt');
+const { itus } = require('./data/itu');
+const metas = { rlts, itus }
 
 function make_radom(n) {
     var result           = '';
@@ -38,7 +38,6 @@ class Util {
         } else {
             the_id = msg;
         }
-        console.log("length: " + the_id.length);
         return the_id;
     } // end of generate_id --------------------------------------
 
@@ -55,23 +54,55 @@ class Util {
         }
     } // end of read_id ------------------------------------------
 
-    make_rlts(){
-        this.db.collection('rlts').drop(err => {
+    make_meta(modelName){
+        // collection name:lower(model-name) pluralized
+        let cname = modelName.toLowerCase() + 's';
+        this.db.collection(cname)
+        .drop(err => {
             console.log('dropping rlts collection failed:' + err);
         })
-        let Tag = models.RLT;
-        let tag;
+        let Rec = models[modelName];
+        let rec;
         // generate_id with useTS: false, not time-stamp
         // they are unique already
-        rlts.forEach(rlt => {
-            tag = new Tag({
-                _id: this.generate_id('META','RLT',rlt.subtype,false,false),
-                descr: rlt.descr
+        metas[cname].forEach(ele => {
+            rec = new Rec({
+                _id: this.generate_id(
+                    'META',modelName, 
+                    ele.subtype,false,false),
+                cat: modelName,
+                subcat: ele.subcat,
+                card: {
+                    Name: ele.name,
+                    Title: ele.title,
+                    Descr: ele.descr,
+                    Symbol: ele.symbol,
+                    Icon: ele.icon
+                }
             });
-            tag.save().then(t => {console.log(`saved in db: ${t}`)});
+            rec.save()
+               .then(r => console.log(`saved in db: ${r}`))
+               .catch(err => console.log('save failed.') );
         });
     
     }
+
+    // make_itus(){
+    //     this.db.collection('itus').drop(err => {
+    //         console.log('dropping itus collection failed:' + err);
+    //     })
+    //     let Rec = models.ITU;
+    //     let rec;
+    //     itus.forEach(itu => {
+    //         rec = new Rec({
+    //             _id = this.generate_id('META','ITU', itu.subtype, false,false),
+    //             descr: itu.descr
+    //         });
+    //         rec.save()
+    //            .then(r => console.log(`saved in db: ${r}`) )
+    //            .catch(err => console.log('save failed.') );
+    //     })
+    // }
 
     make_it = () => {
 

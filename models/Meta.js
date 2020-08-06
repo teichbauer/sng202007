@@ -4,6 +4,24 @@
  * Authored: Raymond Wei 2020-07
  * --------------------------------
  * Meta.js
+ * --------------------------------------------------------
+ * Design considerations:
+ * 1. use nested structure for sub-unit of info, in stead of
+ *    sub-schema. Because sub-schema has to be new-ed, if not
+ *    will have undefined - this increase error
+ *    Here I use card sub-unit, as nexted, but without schema:
+ *    card: {
+ *      Name:  String, // Localized-String(LS),
+ *      Title: String, // Localized-String(LS),
+ *      Descr: String, // Localized-String(LS),
+ *      Symbol:String, // plain ASCII. No LS
+ *      Icon:  String, // plain ASCII: file-path to a media-file
+ *    }
+ * 2. every doc, regardless Entity or meta schema, must have
+ *    cat:    3 char which is included in doc._id
+ *    subcat: 4 char which is included in doc._id
+ *    define index with cat/subcat
+ *    This makes query possible and fast
  * ********************************************************/
 const mongoose = require('mongoose');
 const Util = require('./util').Util;
@@ -12,29 +30,34 @@ const Schema = mongoose.Schema;
 // Create Schema for relational tag
 const RlSchema = new Schema({
     _id: {
-        type: String, // <4>-<3>-<6>-<13>, total: 26 chars
-        required: true
+        type: String,  // <4>-<3>-<4>-<6>-<13>, total: 30 chars
+        required: true // custid-cat-subcat-rand-TS
     },
-    descr: {
-        type: String, // free style string descibin simantics
-        required: true
+    cat: { type: String, required: true },    // 3 char, in index
+    sybcat: { type: String, required: true }, // 4 char, in index
+    card: {
+        Name:   String, // Localized String
+        Title:  String, // LS
+        Descr:  String, // LS
+        Symbol: String, // no LS, plain ASCII
+        Icon:   String  // path to a media-file
     }
 });
+RlSchema.index({cat:1, subcat:1});// 1: ascending, -1: descending
 
 // Log collection Schema
 const LgSchema = new Schema({
     _id: {
-        type: String, // <4>-LGn-<6>-<13>, total: 26 chars
+        type: String, // <4>-LGn-<subcat>-<6>-<13>, total: 30 chars
         required: true
     },
+    ActionType: String, // R/W/D/LI/LO Read,write,delete,login/out
     paid: {
         type: String, // _id of entity, that triggered this log
     },
-    sinfo: {
-        type: String, // record more info.
-        required: true
-    },
+    descr: String
 });
+LgSchema.index({ActionType: 1});
 
 const EntitySchema = new Schema({
     // valid for IT, PA, DC, AC, PB
@@ -42,9 +65,14 @@ const EntitySchema = new Schema({
         type: String, // <4>-<3>-<6>-<13>, total: 26 chars
         required: true
     },
-    sinfo: {
-        type: String, // synopsis string "en:--|zh:--", or '--'
-        required: true
+    cat: { type: String, required: true },    // 3 char, in index
+    sybcat: { type: String, required: true }, // 4 char, in index
+    card: {
+        Name:   String,  // Localized String
+        Title:  String, // LS
+        Descr:  String, // LS
+        Symbol: String, // no LS, plain ASCII
+        Icon:   String  // path to a media-file
     },
     // data is only in PB (parameter-block).
     // in IT, PA, DC and AC, there is one or more pd-id,
@@ -53,64 +81,9 @@ const EntitySchema = new Schema({
         type: Schema.Types.Mixed,
         required: false
     },
-    reldict: {
-        type: Schema.Types.Mixed,
-        required: true
-    }
+    rels: {} // {<RLT-tag(s) as key>:<id of child-obj>,..}
 });
-
-const _init_Rlt = () => {
-    let Tag = mongoose.model('rlt', RlSchema);
-    let util = new Util();
-    let tag;
-    // generate_id with useTS: false, not time-stamp
-    // they are unique already
-    rtls.forEach(rlt => {
-        tag = new Tag({
-            _id: util.generate_id('META','RLT',rlt.subtype,false,false),
-            descr: rlt.descr
-        });
-        tag.save().then(t => {console.log(`saved in db: ${t}`)});
-    });
-
-    // // ------000100
-    // tag = new Tag({
-    //     // subtype: '0100', rs: false, TS false
-    //     _id: util.generate_id('META','RLT','0100',false,false),
-    //     descr: 'part-of'
-    // });
-    // tag.save().then(t => {console.log(`saved in db: ${t}`)});
-    // // ------000200
-    // tag = new Tag({
-    //     _id: util.generate_id('META','RLT','0200',false,false),
-    //     descr: 'made-by'
-    // });
-    // tag.save().then(t => {console.log(`saved in db: ${t}`)});
-    // // ------000300
-    // tag = new Tag({
-    //     _id: util.generate_id('META','RLT','0300',false,false),
-    //     descr: 'reporting-to'
-    // });
-    // tag.save().then(t => {console.log(`saved in db: ${t}`)});
-    // // ------000400
-    // tag = new Tag({
-    //     _id: util.generate_id('META','RLT','0400',false,false),
-    //     descr: 'describing'
-    // });
-    // tag.save().then(t => {console.log(`saved in db: ${t}`)});
-    // // ------000500
-    // tag = new Tag({
-    //     _id: util.generate_id('META','RLT','0500',false,false),
-    //     descr: 'associated-with'
-    // });
-    // tag.save().then(t => {console.log(`saved in db: ${t}`)});
-    // // ------000600
-    // tag = new Tag({
-    //     _id: util.generate_id('META','RLT','0600',false,false),
-    //     descr: 'partnership-with'
-    // });
-    // tag.save().then(t => {console.log(`saved in db: ${t}`)});
-};  // ------------ end of _init_Rlt ----------------
+EntitySchema.index({cat: 1, subcat: 1});
 
 module.exports = {
     // For each, mongoose will create a collection, the name of it
@@ -118,6 +91,7 @@ module.exports = {
     // --------------------------------------------------------------
     // IT for items
     IT: mongoose.model('it', EntitySchema),
+    ITU: mongoose.model('itu', EntitySchema),
     // PA for a person, an organization or institution
     PA: mongoose.model('pa', EntitySchema),
     // DC for description, documentation

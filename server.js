@@ -43,7 +43,8 @@ app.use('/api/items', items);  // a route I defined under api/
 app.get('/index.html', (req, res) => {
     console.log("initiating metas into db...")
     const util = new Util(mongoose.connection.db);
-    util.make_rlts();
+    util.make_meta('RLT');
+    util.make_meta('ITU');
     console.log('u.make_rlts called.s');
     app.use(express.static('client/build'));
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
