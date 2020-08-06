@@ -5,59 +5,54 @@
  * --------------------------------
  * rlt.js
  * ********************************************************/
-const rlts = [ // META-RLT-<subcat>
-    {
-        subcat: '0100',
-        name: '',
-        title:'',
-        symbol: '',
-        icon: '',
-        descr: 'part-of'
-    },
-    {
-        subcat: '0200',
-        name: '',
-        title:'',
-        symbol: '',
-        icon: '',
-        descr: 'made-by'
-    },
-    {
-        subcat: '0300',
-        name: '',
-        title:'',
-        symbol: '',
-        icon: '',
-        descr: 'reporting-to'
-    },
-    {
-        subcat: '0400',
-        name: '',
-        title:'',
-        symbol: '',
-        icon: '',
-        descr: 'describing'
-    },
-    {
-        subcat: '0500',
-        name: '',
-        title:'',
-        symbol: '',
-        icon: '',
-        descr: 'associated-with'
-    },
-    {
-        subcat: '0600',
-        name: '',
-        title:'',
-        symbol: '',
-        icon: '',
-        descr: 'partnershipt-with'
-    },
+const { RL_cats, RL_subcats } = require("../Consts");
+
+const rlts = [
+  // META-RLT-<subcat>
+  {
+    cat: RL_cats.RLI, // physical item
+    subcat: RL_subcats.RLI.PART_OF,
+    name: "part-of",
+    descr: {},
+  },
+  {
+    cat: RL_cats.RLI, // physical item
+    subcat: RL_subcats.RLI.MADE_OF,
+    name: "made-of",
+    descr: {},
+  },
+  {
+    cat: RL_cats.RLp, // physical item made by a PA
+    subcat: RL_subcats.RLp.MADE_BY,
+    name: "made-by",
+    descr: {},
+  },
+  {
+    cat: RL_cats.RLP,
+    subcat: RL_subcats.RLP.BOSSED_BY,
+    name: "reporting-to",
+    descr: {},
+  },
+  {
+    cat: RL_cats.RLD,
+    subcat: RL_subcats.RLD.PART_OF,
+    name: "part-of",
+    descr: {},
+  },
+  {
+    cat: RL_cats.RLP,
+    subcat: RL_subcats.RLP.PARENTS_OF,
+    name: "associated-with",
+    descr: {},
+  },
+  {
+    cat: RL_cats.RLP,
+    subcat: RL_subcats.RLP.SCHOOLMATE_OF,
+    name: "school-mate-of",
+    descr: {},
+  },
 ];
 
-
 module.exports = {
-    rlts: rlts
-}
-
+  rlts: rlts,
+};

@@ -1,3 +1,5 @@
+0.1.28-20200806
+- new meta data for 7x rlt and 81 itu created and saved into MongoDB (Atlas)
 0.1.27-20200806
 - modifications on models
 0.26-20200728
