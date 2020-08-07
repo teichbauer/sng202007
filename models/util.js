@@ -1,6 +1,6 @@
 const models = require("./Meta");
-const { rlts } = require("./data/rlt");
-const { itus } = require("./data/itu");
+const { rlts } = require("./metadata/rlt");
+const { itus } = require("./metadata/itu");
 const metas = { rlts, itus };
 
 function make_radom(n) {
@@ -15,21 +15,25 @@ function make_radom(n) {
 
 class Util {
   constructor(db) {
-    // console.log('constructor called with db:',db);
+    console.log('constructor called with db:',db);
     this.db = db;
   }
+
+  generate_rlt_id(cat1,cat2,rltype){
+    // RLT id diff from Entity id: META-RLT-<3char>-<3char>-<4char> 
+    return `META-RLT-${cat1}-${cat2}-${rltype}`;
+  }
+
   generate_id(
     custid, // 4 char customer-id(db-name) ACSII string
-    typeid, // 3 char category-id
-    subtype, // 4 char subtype
+    cat,    // 3 char category-id
+    subcat, // 4 char subtype
     rs = true, // 6 char random string, if false, opt-out
-    TS = true
-  ) {
-    // 13 char from getTime(milsec) if false, opt out
-    // 13 digits of msec can run to date of 2286-11-20T17:46:39
+    TS = true  // 13 char from getTime(milsec) if false, opt out
+  ) {     // 13 digits of msec can run to date of 2286-11-20T17:46:39
     //-----------total length: 30 chars ---------------------------------
-    subtype = subtype ? subtype : "0000";
-    let msg = `${custid}-${typeid}-${subtype}`;
+    subcat = subcat ? subcat : "0000";
+    let msg = `${custid}-${cat}-${subcat}`;
     if (rs) {
       msg = `${msg}-${make_radom(6)}`;
     }
@@ -56,7 +60,34 @@ class Util {
     };
   } // end of read_id ------------------------------------------
 
-  make_meta(modelName) {
+  make_meta(modelName) { // RLT or ITU
+
+    const make_rlt = (M, ele) => {
+      let rec = new M({
+        _id: this.generate_rlt_id(ele.cat1, ele.cat2, ele.rltype),
+        card: {
+          Name: ele.name,
+          Descr: ele.descr
+        }
+      });
+      return rec;
+    } // end of make_rlt = (M, ele) =>
+
+    const make_entity = (M, ele) => {
+      let rec = new M({
+        _id: this.generate_id("META", 
+                ele.cat, ele.subcat, 
+                false, false),
+        cat: ele.cat,
+        subcat: ele.subcat,
+        card: {
+          Name: ele.name,
+          Descr: ele.descr,
+        },
+      });
+      return rec;
+    } // end of make_entity = (m, ele) =>
+
     // collection name:lower(model-name) pluralized
     let collection_name = modelName.toLowerCase() + "s";
     // drop the collection (clear up) - records will be inserted anew
@@ -70,15 +101,8 @@ class Util {
     // generate_id with useTS: false, not time-stamp
     // they are unique already
     metas[collection_name].forEach((ele) => {
-      rec = new Rec({
-        _id: this.generate_id("META", ele.cat, ele.subcat, false, false),
-        cat: ele.cat,
-        subcat: ele.subcat,
-        card: {
-          Name: ele.name,
-          Descr: ele.descr,
-        },
-      });
+      rec = modelName === "RLT"?
+      make_rlt(Rec, ele) : make_entity(Rec, ele);
       console.log(`saving rec: ${rec} ...`);
       rec
         .save()
@@ -86,23 +110,6 @@ class Util {
         .catch((err) => console.log(`save failed with: ${err}`));
     });
   }
-
-  // make_itus(){
-  //     this.db.collection('itus').drop(err => {
-  //         console.log('dropping itus collection failed:' + err);
-  //     })
-  //     let Rec = models.ITU;
-  //     let rec;
-  //     itus.forEach(itu => {
-  //         rec = new Rec({
-  //             _id = this.generate_id('META','ITU', itu.subtype, false,false),
-  //             descr: itu.descr
-  //         });
-  //         rec.save()
-  //            .then(r => console.log(`saved in db: ${r}`) )
-  //            .catch(err => console.log('save failed.') );
-  //     })
-  // }
 
   make_it = () => {};
   make_pa = () => {};

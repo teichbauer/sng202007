@@ -1,3 +1,6 @@
+0.1.29-20200807
+- modified again RLT model.
+- written design doc in data-model-1.txt.
 0.1.28-20200806
 - new meta data for 7x rlt and 81 itu created and saved into MongoDB (Atlas)
 0.1.27-20200806

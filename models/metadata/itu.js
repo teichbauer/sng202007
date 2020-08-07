@@ -743,6 +743,119 @@ const itus = [
       icon: "",
     },
   },
+  // --------------- preasure
+  {
+    cat: "ITU",
+    subcat: "5000",
+    name: "mtric",
+    descr: {
+      title: "",
+      symbol: "",
+      icon: "",
+    },
+  },
+  {
+    cat: "ITU",
+    subcat: "5001",
+    name: "Pascal",
+    descr: {
+      title: "Pascal",
+      symbol: "pa",
+      icon: "",
+    },
+  },
+  {
+    cat: "ITU",
+    subcat: "5002",
+    name: "bar",
+    descr: {
+      title: "",
+      info: "100,000 pa",
+      symbol: "",
+      icon: "",
+    },
+  },
+  {
+    cat: "ITU",
+    subcat: "5003",
+    name: "milli bar/hectoPascal",
+    descr: {
+      title: "",
+      symbol: "",
+      icon: "",
+    },
+  },
+  {
+    cat: "ITU",
+    subcat: "5100",
+    name: "imperial preasure unit",
+    descr: {
+      title: "",
+      symbol: "",
+      icon: "",
+    },
+  },
+  {
+    cat: "ITU",
+    subcat: "5101",
+    name: "pound / square inch",
+    descr: {
+      title: "psi",
+      symbol: "psi",
+      icon: "",
+    },
+  },
+  // ---------------- speed
+  {
+    cat: "ITU",
+    subcat: "6000",
+    name: "metric speed",
+    descr: {
+      title: "psi",
+      symbol: "psi",
+      icon: "",
+    },
+  },
+  {
+    cat: "ITU",
+    subcat: "6001",
+    name: "km/hour",
+    descr: {
+      title: "km per hour",
+      symbol: "",
+      icon: "",
+    },
+  },
+  {
+    cat: "ITU",
+    subcat: "6002",
+    name: "km/sec",
+    descr: {
+      title: "km per second",
+      symbol: "",
+      icon: "",
+    },
+  },
+  {
+    cat: "ITU",
+    subcat: "6100",
+    name: "non-metric speed",
+    descr: {
+      title: "",
+      symbol: "",
+      icon: "",
+    },
+  },
+  {
+    cat: "ITU",
+    subcat: "6101",
+    name: "mile per hour",
+    descr: {
+      title: "",
+      symbol: "",
+      icon: "",
+    },
+  },
 ];
 
 module.exports = {

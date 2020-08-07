@@ -34,11 +34,9 @@ const Schema = mongoose.Schema;
 // Create Schema for relational tag
 const RlSchema = new Schema({
   _id: {
-    type: String, // <4>-<3>-<4>-<6>-<13>, total: 30 chars
+    type: String, // <4>-<3>-<3>-<3>-<4>, total: 21 chars
     required: true, // custid-cat-subcat-rand-TS
   },
-  cat: { type: String, required: true }, // 3 char, in index
-  subcat: { type: String, required: true }, // 4 char, in index
   card: {
     Name: String, // Localized String
     Descr: Schema.Types.Mixed, //
@@ -112,6 +110,9 @@ module.exports = {
 
   // PB for parameter-/data-block
   PB: mongoose.model("pb", EntitySchema),
+
+  // LO for location
+  LO: mongoose.model("lo", EntitySchema),
 
   // RL: relationship
   RL: mongoose.model("rl", RlSchema),

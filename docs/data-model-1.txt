@@ -1,0 +1,128 @@
+
+All these use Entity-Schema
+_id: <DB-name:4>-<cat:3>-<subcat:4>-<random:6>-<TS:13> 
+  total: 34
+  TS: (new Date()).getTime(), milli-seconds since 1970
+      13 digits will cover next 266 years(till the year 2286)
+
+1. PA: persons, groups, orgs, institutions
+-----------------------------------------
+1.1 PA1: single person 
+1.2 PA2: pair (2 persons) 
+1.3 PA3: group 
+1.4 PA4: not-commercial org 
+1.5 PA5: biz 
+1.6 PA6: sub-division
+1.7 PA7: gov org 
+1.8 PA8: association
+1.9 PA9: classification  
+
+2. IT: items
+-----------------------------------------
+IT1: physical piece (has form)
+    - 0010: metal piece
+    - 0020: plastic piece
+    - 0030: wooden piece
+    - 0040: connecting piece
+    - 0041: nail 
+    - 0042: screw 
+    - 0043: rivet 
+    - 0044: electric point welding
+    - 0045: flame melt welding 
+    - 0046: electric stick welding
+    - 0050: metal wire 
+    - 0060: non-metal wire
+IT2: solid material (formless)
+IT3: equipment 
+IT4: connection
+IT5: plants
+IT6: animals
+IT7: solid food
+IT8: fluid food 
+IT9: fluid material
+ITA: chemicals
+
+3. DC document
+-----------------------------------------
+DC1: definition
+DC2: documentation
+DC3: descriptive text 
+DC4: text + graphics
+DC5: multi-media docs
+DC6: reference
+DC7: program file, configuration 
+
+4. CA concepts, ideas
+-----------------------------------------
+CA1: general name/classification
+CA2: color
+CA3: physical form style
+CA4: sound 
+CA5: doctrine, principle
+CA6: ideology, philosophy
+CA7: methodology
+CA8: doc style, e.G.: methology, fiction, documentory
+     journalism, fairy tale, graphic art,
+CA9: price
+CAA: ranking qualifier
+
+5. AC account, agreed-association 
+-----------------------------------------
+AC1: consumer account: bank, user-account
+AC2: contract, agreement 
+
+
+6. AT: actions, operation, transactions
+-----------------------------------------
+AT1: operating
+AT2: triggering, starting
+AT3: ending
+AT4: login
+AT5: logout 
+AT6: read access 
+AT7: write access 
+AT8: connecting
+
+
+7. PB: parameter-, number- blocks
+----------------------------------------
+PB1: parameter block data 
+PB2: measurement
+PB2: configuration
+PB4: description
+
+8. LO: locations 
+-----------------------------------------
+LO1: geo location
+LO2: referencial location
+LO3: building 
+LO4: work-post
+
+
+9. SK: skill, ability
+--------------------------
+SK1: inborn skill
+SK2: learned skill
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++
+100. RL: relationships
+--------------------------
+RlSchema
+_id: META-RLT-<a:3>-<b:3>-<l:4>  total 21 chars 
+
+a: containing entity's cat - 3 chars 
+b: contained entity's cat - 3 chars 
+l: relationship - 4 chars long 
+
+
+
+
+101. LG: logs, records
+-----------------------------------------
+LgSchema
+
+-----------------------------------------
+
+###################################################
+subcat
