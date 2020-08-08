@@ -1,3 +1,5 @@
+0.1.30-20200808
+- tidy up util.js and server.js
 0.1.29-20200807
 - modified again RLT model.
 - written design doc in data-model-1.txt.

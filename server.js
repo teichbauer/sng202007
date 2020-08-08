@@ -15,12 +15,12 @@ const app = express();
 app.use(bodyParser.json());
 
 // DB config
-const db = require('./config/keys').mongoURI;
+const db_conn_string = require('./config/keys').mongoURI;
 // const db = 'mongodb://dbservice:27017/mern';
 // const db = 'mongodb://localhost:27017/mern';
 
 // Connect to mongo
-mongoose.connect(db, 
+mongoose.connect(db_conn_string, 
     {
         useNewUrlParser: true
         , useCreateIndex: true
@@ -38,18 +38,13 @@ app.use('/api/items', items);  // a route I defined under api/
 
 // Serve static assets if in production, or, as here I commented the line out,
 // when / or /index.html isrequested
-//if(process.env.NODE_ENV === 'production'){
-// app.use(express.static('client/build'));
 app.get('/index.html', (req, res) => {
     console.log("initiating metas into db...")
-    const util = new Util(mongoose.connection.db);
-    util.make_meta('RLT');
-    util.make_meta('ITU');
+    Util.make_meta(mongoose.connection.db);
     console.log('u.make_rlts called.s');
     app.use(express.static('client/build'));
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
 })
-//}
 
 const port = process.env.PORT || 5000;
 console.log('process.env.NODE_ENV: ', process.env.NODE_ENV);
