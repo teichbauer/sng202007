@@ -1,3 +1,7 @@
+const { RL_types } = require('../models/Consts');
+
+const rl_parent_of =  'RLT-' + RL_types.PARENT_OF;
+
 const pas = [
     {
         cat: 'PA1',
@@ -5,7 +9,10 @@ const pas = [
         descr: {
             gender: 'male',
             dob: '1893-12-26'
-        } 
+        }, 
+        rels: {
+            [rl_parent_of]: [] 
+        }
     },
     {
         cat: 'PA1',
