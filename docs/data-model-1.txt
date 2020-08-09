@@ -97,7 +97,7 @@ LO1: geo location
 LO2: referencial location
 LO3: building 
 LO4: work-post
-
+LO5: address 
 
 9. SK: skill, ability
 --------------------------

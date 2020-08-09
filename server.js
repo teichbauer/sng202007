@@ -44,6 +44,13 @@ app.get('/index.html', (req, res) => {
     console.log('u.make_rlts called.s');
     app.use(express.static('client/build'));
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+});
+
+const test = require('./entityClasses/entityTest');
+
+app.get('/pas', (req, res) => {
+    console.log("loading pas into db...");
+    test();
 })
 
 const port = process.env.PORT || 5000;

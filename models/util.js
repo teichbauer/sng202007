@@ -1,3 +1,11 @@
+/**********************************************************
+ * Digital-Work(c) 2020
+ * -----------------------------
+ * Authored: Raymond Wei 2020-08
+ * --------------------------------
+ * util.js
+ * ********************************************************/
+
 // import 2 meta-models
 const { RLT, ITU } = require("./Meta"); // models
 // import data
@@ -37,7 +45,7 @@ class Util {
     let the_id;
     if (TS) {
       let ts = new Date().getTime().toString();
-      let the_id = `${msg}-${ts}`;
+      the_id = `${msg}-${ts}`;
     } else {
       the_id = msg;
     }
@@ -57,13 +65,13 @@ class Util {
     };
   } // end of read_id ------------------------------------------
 
-  static make_entity = (M, ele) => {
+  static make_entity = (M, ele, id, useRandom=true, useTS=true) => {
+    id = id || Util.generate_id("META", 
+                          ele.cat, ele.subcat, useRandom, useTS);
     let rec = new M({
-      _id: Util.generate_id("META", 
-              ele.cat, ele.subcat, 
-              false, false),
+      _id: id ,
       cat: ele.cat,
-      subcat: ele.subcat,
+      subcat: ele.subcat || id.substr(9,4), 
       card: {
         Name: ele.name,
         Descr: ele.descr,
@@ -86,7 +94,6 @@ class Util {
       return rec;
     } // end of make_rlt = (M, ele) =>
 
-    let rec; // for model instance
     metas.forEach(meta => {
       let [M, data] = meta;
       db.collection(M.modelName + 's').drop((err) => {
@@ -94,10 +101,11 @@ class Util {
       });
 
       data.forEach((ele) => {
-        rec = M === RLT? make_rlt(M, ele) : Util.make_entity(M, ele);
-        console.log(`saving rec: ${rec} ...`);
+        let rec = M === RLT? 
+          make_rlt(M, ele) 
+          : Util.make_entity(M, null, ele, false, false);
         rec.save()
-          .then((r) => console.log(`saved in db: ${r}`))
+          .then((r) => console.log(`saved in db: ${M.modelName}`))
           .catch((err) => console.log(`save failed with: ${err}`));
       });  
     });

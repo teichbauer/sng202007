@@ -48,6 +48,9 @@ const RL_types = {
   OFFERED_BY:       "0010",
   DELIVERED_BY:     "0011",
   SPECIFIED_BY:     "0012",
+  BIRTH_PLACE_OF:   "0013",
+  DEATH_PLACE_OF:   "0014",
+  BURIAL_PLACE_OF:  "0015",
 };
 
 
