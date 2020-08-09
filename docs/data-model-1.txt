@@ -45,7 +45,19 @@ ITA: chemicals
 3. DC document
 -----------------------------------------
 DC1: definition
+    - 000A: access control level A
+    - 000B: access control level B
+    - 000C: access control level C
+    - 000D: access control level D
+    - 000E: access control level E
+    - 000F: access control level F
+    - 0010: standard
+
 DC2: documentation
+    - 0001: doc with single mime in card.Descr
+    - 0002: mixture of mime
+    - 0003: folder
+
 DC3: descriptive text 
 DC4: text + graphics
 DC5: multi-media docs

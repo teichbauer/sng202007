@@ -51,6 +51,7 @@ const RL_types = {
   BIRTH_PLACE_OF:   "0013",
   DEATH_PLACE_OF:   "0014",
   BURIAL_PLACE_OF:  "0015",
+  PARENTS_OF:       "0016",
 };
 
 
