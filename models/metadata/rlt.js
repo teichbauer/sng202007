@@ -5,7 +5,7 @@
  * --------------------------------
  * rlt.js
  * ********************************************************/
-const { RL_types } = require("../Consts");
+const { RL_types } = require("../RLTConsts");
 
 const rlts = [
   // META-RLT-<subcat>

@@ -9,11 +9,61 @@
 // import 2 meta-models
 const { RLT, ITU } = require("./Meta"); // models
 // import data
-const { rlts } = require("./metadata/rlt");
-const { itus } = require("./metadata/itu");
+import { rlts } from "./metadata/rlt";
+import { itus } from "./metadata/itu";
 
+/** global settings for string Localization
+ * ------------------------------------------
+ * regular expression pattern for
+ * en: English, zh: Chinese, de: German
+ */
+const LS_REGEXP = new RegExp(/\ben\:|\bzh\:|\bde\:/g);
+const DEFAULT_LOCALE = "en"; // locale-string: en | zh | ...
 
 class Util {
+  static get default_LS() {
+    return DEFAULT_LOCALE;
+  }
+
+  static get_Descr(card, key, ls = null) {
+    if (!(key in card.Descr)) return "";
+
+    if (card.Descr.LSS && key in card.Descr.LSS) {
+      // Descr.LSS exists, key is in it
+      ls = ls || Util.default_LS;
+      let msg = card.Descr[key];
+      if (msg.search(LS_REGEXP) > -1) {
+        // msg has locale in it
+        let splt = msg.split("|");
+        let defLS = "";
+        for (let m in splt) {
+          if (m.startsWith(ls)) {
+            return m.split(":")[1];
+          } else if (m.startsWith(Util.default_LS)) {
+            defLS = m.split(":")[1];
+          }
+          // msg doesn't contain ls as locale
+          if (defLS.length > 0) {
+            // but DOES have default LS: return default msg
+            return defLS;
+          } else {
+            // not having default LS.
+            // use the very first | separated msg
+            if (splt[0].search(":") > -1) {
+              // having a :, split with : and return body
+              return splt[0].split(":")[1];
+            } else {
+              // no : in it - return the whole body
+              return splt[0];
+            }
+          }
+        }
+      } else {
+        return msg;
+      }
+    }
+  }
+
   static make_radom(n) {
     var result = "";
     var chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789";
@@ -24,18 +74,19 @@ class Util {
     return result;
   }
 
-  static generate_rlt_id(cat1,cat2,rltype){
-    // RLT id diff from Entity id: META-RLT-<3char>-<3char>-<4char> 
+  static generate_rlt_id(cat1, cat2, rltype) {
+    // RLT id diff from Entity id: META-RLT-<3char>-<3char>-<4char>
     return `META-RLT-${cat1}-${cat2}-${rltype}`;
   }
 
   static generate_id(
     custid, // 4 char customer-id(db-name) ACSII string
-    cat,    // 3 char category-id
+    cat, // 3 char category-id
     subcat, // 4 char subtype
     rs = true, // 6 char random string, if false, opt-out
-    TS = true  // 13 char from getTime(milsec) if false, opt out
-  ) {     // 13 digits of msec can run to date of 2286-11-20T17:46:39
+    TS = true // 13 char from getTime(milsec) if false, opt out
+  ) {
+    // 13 digits of msec can run to date of 2286-11-20T17:46:39
     //-----------total length: 30 chars ---------------------------------
     subcat = subcat ? subcat : "0000";
     let msg = `${custid}-${cat}-${subcat}`;
@@ -65,49 +116,54 @@ class Util {
     };
   } // end of read_id ------------------------------------------
 
-  static make_entity = (M, ele, id, useRandom=true, useTS=true) => {
-    id = id || Util.generate_id("META", 
-                          ele.cat, ele.subcat, useRandom, useTS);
+  static make_entity = (M, ele, id, useRandom = true, useTS = true) => {
+    id = id || Util.generate_id("META", ele.cat, ele.subcat, useRandom, useTS);
     let rec = new M({
-      _id: id ,
+      _id: id,
       cat: ele.cat,
-      subcat: ele.subcat || id.substr(9,4), 
+      subcat: ele.subcat || id.substr(9, 4),
       card: {
         Name: ele.name,
         Descr: ele.descr,
       },
     });
     return rec;
-  } // end of make_entity = (m, ele) =>
+  }; // end of make_entity = (m, ele) =>
 
-  static make_meta(db) { // RLT or ITU
-    const metas = [[RLT, rlts],[ITU, itus]];
+  static make_meta(db) {
+    // RLT or ITU
+    const metas = [
+      [RLT, rlts],
+      [ITU, itus],
+    ];
 
     const make_rlt = (M, ele) => {
       let rec = new M({
         _id: Util.generate_rlt_id(ele.cat1, ele.cat2, ele.rltype),
         card: {
           Name: ele.name,
-          Descr: ele.descr
-        }
+          Descr: ele.descr,
+        },
       });
       return rec;
-    } // end of make_rlt = (M, ele) =>
+    }; // end of make_rlt = (M, ele) =>
 
-    metas.forEach(meta => {
+    metas.forEach((meta) => {
       let [M, data] = meta;
-      db.collection(M.modelName + 's').drop((err) => {
+      db.collection(M.modelName + "s").drop((err) => {
         console.log("dropping rlts collection failed:" + err);
       });
 
       data.forEach((ele) => {
-        let rec = M === RLT? 
-          make_rlt(M, ele) 
-          : Util.make_entity(M, null, ele, false, false);
-        rec.save()
+        let rec =
+          M === RLT
+            ? make_rlt(M, ele)
+            : Util.make_entity(M, null, ele, false, false);
+        rec
+          .save()
           .then((r) => console.log(`saved in db: ${M.modelName}`))
           .catch((err) => console.log(`save failed with: ${err}`));
-      });  
+      });
     });
   }
 }
