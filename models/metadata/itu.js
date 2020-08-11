@@ -858,6 +858,4 @@ const itus = [
   },
 ];
 
-module.exports = {
-  itus: itus,
-};
+export default itus;

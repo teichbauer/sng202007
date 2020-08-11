@@ -1,4 +1,4 @@
-const Util = require('./util').Util;
+import Util from "./util.js";
 
 const u = new Util();
 

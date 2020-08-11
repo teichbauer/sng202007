@@ -6,10 +6,11 @@
  * PAClass.js
  * ********************************************************/
 
-const EntityClass = require("./EntityClass");
-const { PA } = require("../models/Meta");
+import EntityClass from "./EntityClass.js";
+import Meta from "../models/Meta.js";
+const PA = Meta.PA;
 
-class PAClass extends EntityClass {
+export default class PAClass extends EntityClass {
   constructor(cid, cat, subcat, card, _id = null) {
     super(cid, cat, subcat, card, _id);
     this.model = PA;
@@ -22,4 +23,4 @@ class PAClass extends EntityClass {
   }
 } // end of PAClass
 
-module.exports = PAClass;
+//module.exports = PAClass;

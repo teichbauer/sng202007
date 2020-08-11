@@ -7,10 +7,11 @@
  * ********************************************************/
 
 // import 2 meta-models
-const { RLT, ITU } = require("./Meta"); // models
+import Meta from "./Meta.js";
+const { RLT, ITU } = Meta;
 // import data
-import { rlts } from "./metadata/rlt";
-import { itus } from "./metadata/itu";
+import rltsS from "./metadata/rlt.js";
+import itus from "./metadata/itu.js";
 
 /** global settings for string Localization
  * ------------------------------------------
@@ -20,7 +21,7 @@ import { itus } from "./metadata/itu";
 const LS_REGEXP = new RegExp(/\ben\:|\bzh\:|\bde\:/g);
 const DEFAULT_LOCALE = "en"; // locale-string: en | zh | ...
 
-class Util {
+export default class Util {
   static get default_LS() {
     return DEFAULT_LOCALE;
   }
@@ -34,7 +35,7 @@ class Util {
       let msg = card.Descr[key];
       if (msg.search(LS_REGEXP) > -1) {
         // msg has locale in it
-        let splt = msg.split("|");
+        let splt = msg.split("||");
         let defLS = "";
         for (let m in splt) {
           if (m.startsWith(ls)) {
@@ -124,9 +125,12 @@ class Util {
       subcat: ele.subcat || id.substr(9, 4),
       card: {
         Name: ele.name,
-        Descr: ele.descr,
+        Descr: { LSS: [], NAME: ele.name, ...ele.descr },
       },
     });
+    if (ele.name.search(LS_REGEXP) > -1) {
+      rec.card.Descr["LSS"].push("Name");
+    }
     return rec;
   }; // end of make_entity = (m, ele) =>
 
@@ -167,7 +171,3 @@ class Util {
     });
   }
 }
-
-module.exports = {
-  Util: Util,
-};

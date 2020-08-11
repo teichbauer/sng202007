@@ -27,8 +27,7 @@
  *    define index with cat/subcat
  *    This makes query possible and fast
  * ********************************************************/
-const mongoose = require("mongoose");
-const Util = require("./util").Util;
+import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 // Create Schema for relational tag
@@ -85,7 +84,7 @@ const EntitySchema = new Schema({
 });
 EntitySchema.index({ cat: 1, subcat: 1 });
 
-module.exports = {
+const Meta = {
   // For each, mongoose will create a collection, the name of it
   // will be the plural of the 2-char used here: it -> its,...
   // --------------------------------------------------------------
@@ -121,3 +120,4 @@ module.exports = {
   // LG for logging record
   LG: mongoose.model.toString("lg", LgSchema),
 };
+export default Meta;

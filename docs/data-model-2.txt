@@ -1,0 +1,25 @@
+2020-08010
+-------------------------------------------------------------------------------
+card of EntityClass
+Every card has two fields:
+  Name: String  // this is for internal usage only. Will be put into Descr too,
+                // under the Descr.<key.: NAME
+  Descr: {
+      LSS:[],   // every value in Descr{} that has locale-string, its Name
+                // is saved in here.
+                // Every key in card.Descr, is all CAPITALIZED word, that is
+                // defined/reserved here
+  }
+-------------
+NAME    // name 
+DOB     // date of birth
+DOD     // date of death
+DOM     // date of marriage
+POB     // place of birth
+POD     // place of death
+PBR     // place of burial
+GENDER  // gender/sex
+TITLE1  // acquired title, as in Dr. Prf.
+TITLE2  // millitary title: like gen. ken,
+TITLE3  // work position title: Mr. President, carried in calling
+TITLE4  // work post title: QA Mgr. General Mgr,.. not in calling?

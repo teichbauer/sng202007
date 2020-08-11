@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "blah...",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "client-install": "npm install --prefix client",
     "start": "node server.js",
@@ -27,6 +28,7 @@
     "npm start --prefix client": "will run the 'npm start' in client folder",
     "dev": "runs the two quoted cmds concurrently, using 'concurrently' module",
     "client-install": "when move to a new place, run this to install client",
-    "client-install-cont": "to install client side dependancies"
+    "client-install-cont": "to install client side dependancies",
+    "type: module": "necessary to use import in js files"
   }
 }

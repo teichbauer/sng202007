@@ -5,7 +5,7 @@
  * --------------------------------
  * rlt.js
  * ********************************************************/
-const { RL_types } = require("../RLTConsts");
+import { RL_types } from "../RLTConsts.js";
 
 const rlts = [
   // META-RLT-<subcat>
@@ -102,6 +102,4 @@ const rlts = [
   },
 ];
 
-module.exports = {
-  rlts: rlts,
-};
+export default rlts;
