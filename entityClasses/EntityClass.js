@@ -16,6 +16,7 @@ class EntityClass {
     this.cat = cat;
     this.subcat = subcat || this._id.substr(9, 4);
     this.card = card;
+    this.rels = {};
   }
 
   // load entity from a data file.
@@ -26,6 +27,10 @@ class EntityClass {
     this.cat = rec.cat;
     this.subcat = rec.subcat;
     this.card = rec.card;
+    this.rels = rec.rels;
+    if (rec.data) {
+      this.data = rec.data;
+    }
   }
 
   update_db() {

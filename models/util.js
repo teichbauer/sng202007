@@ -10,7 +10,7 @@
 import Meta from "./Meta.js";
 const { RLT, ITU } = Meta;
 // import data
-import rltsS from "./metadata/rlt.js";
+import rlts from "./metadata/rlt.js";
 import itus from "./metadata/itu.js";
 
 /** global settings for string Localization
@@ -26,42 +26,41 @@ export default class Util {
     return DEFAULT_LOCALE;
   }
 
-  static get_Descr(card, key, ls = null) {
-    if (!(key in card.Descr)) return "";
+  static getDescrValue(Descr, key, ls = null) {
+    if (!(key in Descr)) return "";
+    if (!Descr.LSS || !Descr.LSS.includes(key)) return Descr[key];
 
-    if (card.Descr.LSS && key in card.Descr.LSS) {
-      // Descr.LSS exists, key is in it
-      ls = ls || Util.default_LS;
-      let msg = card.Descr[key];
-      if (msg.search(LS_REGEXP) > -1) {
-        // msg has locale in it
-        let splt = msg.split("||");
-        let defLS = "";
-        for (let m in splt) {
-          if (m.startsWith(ls)) {
-            return m.split(":")[1];
-          } else if (m.startsWith(Util.default_LS)) {
-            defLS = m.split(":")[1];
-          }
-          // msg doesn't contain ls as locale
-          if (defLS.length > 0) {
-            // but DOES have default LS: return default msg
-            return defLS;
+    // Descr.LSS exists, key is in it
+    ls = ls || Util.default_LS;
+    let msg = Descr[key];
+    if (msg.search(LS_REGEXP) > -1) {
+      // msg has locale in it
+      let splt = msg.split("||");
+      let defLS = "";
+      for (let m of splt) {
+        if (m.startsWith(ls)) {
+          return m.split(":")[1];
+        } else if (m.startsWith(Util.default_LS)) {
+          defLS = m.split(":")[1];
+        }
+        // msg doesn't contain ls as locale
+        if (defLS.length > 0) {
+          // but DOES have default LS: return default msg
+          return defLS;
+        } else {
+          // not having default LS.
+          // use the very first | separated msg
+          if (splt[0].search(":") > -1) {
+            // having a :, split with : and return body
+            return splt[0].split(":")[1];
           } else {
-            // not having default LS.
-            // use the very first | separated msg
-            if (splt[0].search(":") > -1) {
-              // having a :, split with : and return body
-              return splt[0].split(":")[1];
-            } else {
-              // no : in it - return the whole body
-              return splt[0];
-            }
+            // no : in it - return the whole body
+            return splt[0];
           }
         }
-      } else {
-        return msg;
       }
+    } else {
+      return msg;
     }
   }
 
@@ -162,7 +161,13 @@ export default class Util {
         let rec =
           M === RLT
             ? make_rlt(M, ele)
-            : Util.make_entity(M, null, ele, false, false);
+            : Util.make_entity(
+                M,
+                ele,
+                null, // _id null: let generate
+                false, // useRandome: false
+                false // useTS: false
+              );
         rec
           .save()
           .then((r) => console.log(`saved in db: ${M.modelName}`))

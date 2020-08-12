@@ -19,6 +19,10 @@ const db_conn_string = dbURI.mongoURI;
 // const db = 'mongodb://dbservice:27017/mern';
 // const db = 'mongodb://localhost:27017/mern';
 
+// since "type: module" put in pack.json, __direname became undefined
+// work-around here:
+const __dirname = path.resolve("");
+
 // Connect to mongo
 mongoose
   .connect(db_conn_string, {

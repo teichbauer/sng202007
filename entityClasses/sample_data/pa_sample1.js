@@ -4,19 +4,24 @@ import {
   reverse_RLT_id,
 } from "../../models/RLTConsts.js";
 
-const DPACKEY = "TC6H-0001"; // <cid>-<version>
+export const DPACKEY = "TC6H-0001"; // <cid>-<version>
 // -------- all rls -----------------------------------------
-const CHILD_OF = get_RLT_id(RL_types.RL_CHILD_OF, "PA1", "PA2");
-const HAS_CHILD = reverse_RLT_id(CHILD_OF); // RL_HAS_CHILD, reverse cat1/cat2
+export const CHILD_OF = get_RLT_id(RL_types.RL_CHILD_OF, "PA1", "PA2");
+// RL_HAS_CHILD, reverse cat1/cat2
+export const HAS_CHILD = reverse_RLT_id(CHILD_OF);
 
-const MALE_OF = get_RLT_id(RL_types.RL_MALE_OF, "PA1", "PA2");
-const HAS_MALE = reverse_RLT_id(MALE_OF); // RL_HAS_MALE
+export const MALE_OF = get_RLT_id(RL_types.RL_MALE_OF, "PA1", "PA2");
+export const HAS_MALE = reverse_RLT_id(MALE_OF); // RL_HAS_MALE
 
-const FEMALE_OF = get_RLT_id(RL_types.RL_FEMALE_OF, "PA1", "PA2");
-const HAS_FEMALE = reverse_RLT_id(FEMALE_OF); // RL_HAS_FEMALE
+export const FEMALE_OF = get_RLT_id(RL_types.RL_FEMALE_OF, "PA1", "PA2");
+export const HAS_FEMALE = reverse_RLT_id(FEMALE_OF); // RL_HAS_FEMALE
 
-const HAS_MARR_BOND = get_RLT_id(RL_types.RL_HAS_MARR_BOND, "PA1", "PA2");
-const MARR_BOND_OF = reverse_RLT_id(HAS_MARR_BOND); // RL_MARRIAGE_BOND_OF
+export const HAS_MARR_BOND = get_RLT_id(
+  RL_types.RL_HAS_MARR_BOND,
+  "PA1",
+  "PA2"
+);
+export const MARR_BOND_OF = reverse_RLT_id(HAS_MARR_BOND); // RL_MARRIAGE_BOND_OF
 // -------- end of all rls -----------------------------------------
 
 export const pas = [
@@ -24,8 +29,9 @@ export const pas = [
     // 毛泽东
     [DPACKEY]: "PA1-001",
     cat: "PA1",
-    name: "en:Mao Ze-Dong||zh:毛泽东",
     descr: {
+      LSS: ["NAME"],
+      NAME: "en:Mao Ze-Dong||zh:毛泽东",
       GENDER: "male",
       DOB: "1893-12-26",
       DOD: "1976-09-09",
@@ -39,8 +45,9 @@ export const pas = [
     // 毛泽民
     [DPACKEY]: "PA1-002",
     cat: "PA1",
-    name: "en:Mao Ze-Min||zh:毛泽民",
     descr: {
+      LSS: ["NAME"],
+      NAME: "en:Mao Ze-Min||zh:毛泽民",
       GENDER: "male",
       DOB: "1895-02-26",
       DOD: "1943-09-09",
@@ -53,8 +60,9 @@ export const pas = [
     // 毛泽覃
     [DPACKEY]: "PA1-003",
     cat: "PA1",
-    name: "en:Mao Ze Tan||zh:毛泽覃",
     descr: {
+      LSS: ["NAME"],
+      NAME: "en:Mao Ze Tan||zh:毛泽覃",
       GENDER: "male",
       DOB: "1900-10-26",
       DOD: "1945-09-09",
@@ -64,10 +72,11 @@ export const pas = [
     },
   },
   {
-    [DPACKEY]: "PA-004",
+    [DPACKEY]: "PA1-004",
     cat: "PA1",
-    name: "en:Yang Kai Hui||zh:杨开慧",
     descr: {
+      LSS: ["NAME"],
+      NAME: "en:Yang Kai Hui||zh:杨开慧",
       GENDER: "female",
       DOB: "1899-02-26",
     },
@@ -76,10 +85,11 @@ export const pas = [
     },
   },
   {
-    [DPACKEY]: "PA-005",
+    [DPACKEY]: "PA1-005",
     cat: "PA1",
-    name: "en:Mao An Ying||zh:毛岸英",
     descr: {
+      LSS: ["NAME"],
+      NAME: "en:Mao An Ying||zh:毛岸英",
       GENDER: "male",
       DOB: "1923-02-26",
     },
@@ -88,10 +98,11 @@ export const pas = [
     },
   },
   {
-    [DPACKEY]: "PA-006",
+    [DPACKEY]: "PA1-006",
     cat: "PA1",
-    name: "en:Mao An Qing||zh:毛岸青",
     descr: {
+      LSS: ["NAME"],
+      NAME: "en:Mao An Qing||zh:毛岸青",
       GENDER: "male",
       DOB: "1893-12-26",
     },
@@ -100,10 +111,11 @@ export const pas = [
     },
   },
   {
-    [DPACKEY]: "PA-007",
+    [DPACKEY]: "PA1-007",
     cat: "PA1",
-    name: "en:Mao An Qing||zh:毛岸龙",
     descr: {
+      LSS: ["NAME"],
+      NAME: "en:Mao An Qing||zh:毛岸龙",
       GENDER: "male",
       DOB: "1893-12-26",
     },
@@ -112,10 +124,11 @@ export const pas = [
     },
   },
   {
-    [DPACKEY]: "PA-008",
+    [DPACKEY]: "PA1-008",
     cat: "PA1",
-    name: "en:Mao An Qing||zh:毛宜昌",
     descr: {
+      LSS: ["NAME"],
+      NAME: "en:Mao An Qing||zh:毛宜昌",
       GENDER: "male",
       DOB: "1893-12-26",
     },
@@ -124,10 +137,11 @@ export const pas = [
     },
   },
   {
-    [DPACKEY]: "PA-009",
+    [DPACKEY]: "PA1-009",
     cat: "PA1",
-    name: "en:Wen Su Qin||zh:文素勤）",
     descr: {
+      LSS: ["NAME"],
+      NAME: "en:Wen Su Qin||zh:文素勤）",
       GENDER: "female",
       DOB: "1893-12-26",
     },
@@ -140,8 +154,9 @@ export const pas = [
     // marriage(毛宜昌 and 文素勤）
     [DPACKEY]: "PA2-001",
     cat: "PA2",
-    name: "marriage(Mao Yi Chang, Wen Su Qing)",
-    descr: {},
+    descr: {
+      NAME: "marriage(Mao Yi Chang, Wen Su Qing)",
+    },
     rels: {
       [HAS_CHILD]: [
         "PA1-001", // Mao ZD
@@ -156,8 +171,9 @@ export const pas = [
     // marriage（毛泽东 and 杨开慧）
     [DPACKEY]: "PA2-002",
     cat: "PA2",
-    name: "marriage(Mao ZeDong, Yang Kai-Hui)",
-    descr: {},
+    descr: {
+      NAME: "marriage(Mao ZeDong, Yang Kai-Hui)",
+    },
     rels: {
       [HAS_CHILD]: [
         "PA1-005", // Mao AY
