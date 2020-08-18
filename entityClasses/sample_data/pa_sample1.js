@@ -29,6 +29,7 @@ export const pas = [
     // 毛泽东
     [DPACKEY]: "PA1-001",
     cat: "PA1",
+    //subcat: "0000",
     descr: {
       LSS: ["NAME"],
       NAME: "en:Mao Ze-Dong||zh:毛泽东",

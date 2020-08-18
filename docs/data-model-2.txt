@@ -11,6 +11,9 @@ Every card has two fields:
                 // defined/reserved here
   }
 -------------
+LSS     // localized strings - array of keys
+ENCRPTS // array of keys: <key>-<encryption methods>
+        // encryption method can be MD5, SHA1, SHA256
 NAME    // name 
 DOB     // date of birth
 DOD     // date of death
@@ -22,4 +25,8 @@ GENDER  // gender/sex
 TITLE1  // acquired title, as in Dr. Prf.
 TITLE2  // millitary title: like gen. ken,
 TITLE3  // work position title: Mr. President, carried in calling
-TITLE4  // work post title: QA Mgr. General Mgr,.. not in calling?
+TITLE4   // work post title: QA Mgr. General Mgr,.. not in calling?
+EMAIL
+USERNAME
+USERPIN
+PASSWORD

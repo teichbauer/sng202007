@@ -116,20 +116,17 @@ export default class Util {
     };
   } // end of read_id ------------------------------------------
 
-  static make_entity = (M, ele, id, useRandom = true, useTS = true) => {
-    id = id || Util.generate_id("META", ele.cat, ele.subcat, useRandom, useTS);
-    let rec = new M({
-      _id: id,
-      cat: ele.cat,
-      subcat: ele.subcat || id.substr(9, 4),
-      card: {
-        Name: ele.name,
-        Descr: { LSS: [], NAME: ele.name, ...ele.descr },
-      },
-    });
-    if (ele.name.search(LS_REGEXP) > -1) {
-      rec.card.Descr["LSS"].push("Name");
+  static make_entity = (M, ele, useRandom = true, useTS = true) => {
+    if (!ele._id) {
+      ele._id = Util.generate_id("META", ele.cat, ele.subcat, useRandom, useTS);
     }
+    if (!ele.card) {
+      ele.card = {
+        Name: Util.getDescrValue(ele.descr, "NAME"),
+        Descr: { ...ele.descr },
+      };
+    }
+    let rec = new M(ele);
     return rec;
   }; // end of make_entity = (m, ele) =>
 
@@ -159,15 +156,8 @@ export default class Util {
 
       data.forEach((ele) => {
         let rec =
-          M === RLT
-            ? make_rlt(M, ele)
-            : Util.make_entity(
-                M,
-                ele,
-                null, // _id null: let generate
-                false, // useRandome: false
-                false // useTS: false
-              );
+          M === RLT ? make_rlt(M, ele) : Util.make_entity(M, ele, false, false);
+        // useRandome: false, useTS: false
         rec
           .save()
           .then((r) => console.log(`saved in db: ${M.modelName}`))

@@ -19,8 +19,10 @@ const HAS_MALE = get_RLT_id(RL_types.RL_HAS_MALE, "PA2", "PA1");
 const HAS_FEMALE = get_RLT_id(RL_types.RL_HAS_FEMALE, "PA2", "PA1");
 
 export default class PAClass extends EntityClass {
-  constructor(cid, cat, subcat, card, _id = null) {
-    super(cid, cat, subcat, card, _id);
+  // constructor(cid, cat, subcat, card, _id = null) {
+  constructor(cid, record) {
+    super(cid, record);
+    // super(cid, cat, subcat, card, _id);
     this.model = PA;
   }
 

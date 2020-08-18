@@ -9,14 +9,15 @@
 import Util from "../models/util.js";
 
 class EntityClass {
-  constructor(cid, cat, subcat, card, _id = null) {
+  // constructor(cid, cat, subcat, card, _id = null) {
+  constructor(cid, record) {
     // if subcat missing, fill it with '0000' in _id
-    this._id = _id || Util.generate_id(cid, cat, subcat);
+    this._id = record._id || Util.generate_id(cid, record.cat, record.subcat);
     this.cid = cid;
-    this.cat = cat;
-    this.subcat = subcat || this._id.substr(9, 4);
-    this.card = card;
-    this.rels = {};
+    this.cat = record.cat;
+    this.subcat = record.subcat || this._id.substr(9, 4);
+    this.card = record.card;
+    this.rels = record.rels;
   }
 
   // load entity from a data file.
@@ -42,16 +43,11 @@ class EntityClass {
 
   // method save (to DB)
   save_db() {
-    let ent = Util.make_entity(
-      this.model,
-      {
-        name: this.card.Name,
-        cat: this.cat,
-        subcat: this.subcat,
-        descr: this.card,
-      },
-      this._id
-    );
+    let ent = Util.make_entity(this.model, {
+      cat: this.cat,
+      subcat: this.subcat,
+      descr: this.card,
+    });
     ent
       .save()
       .then((e) => console.log(`${this.card.Name} saved.`))

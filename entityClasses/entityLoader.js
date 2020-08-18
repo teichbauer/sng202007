@@ -32,17 +32,53 @@ const fsWriteLog = function (fname, data, callback) {};
 let log_lines;
 
 export default function entityLoader() {
+  const find_id_in_map = (v, map) => {
+    if (v in map) {
+      return map[v];
+    } else {
+      console.log(`Error: ${v} not in nameMap`);
+      return "";
+    }
+  };
+
   let nameMap = {};
-  let p;
-  let card;
+  let ent;
+  // let card;
   let ents = [];
+  // loop-1: create each with it's _id
   for (let pa of pas) {
-    card = {
-      Name: Util.getDescrValue(pa.descr, "NAME"),
-      Descr: { ...pa.descr },
-    };
-    p = new PAClass(cid, pa.cat, "0000", card);
-    ents.push(p);
-    nameMap[pa[DPACKEY]] = pa._id;
+    if (!pa.card) {
+      pa.card = {
+        Name: Util.getDescrValue(pa.descr, "NAME"),
+        Descr: { ...pa.descr },
+      };
+    }
+
+    ent = new PAClass(cid, pa);
+    ents.push(ent);
+    nameMap[pa[DPACKEY]] = ent._id;
   }
-}
+  // loop-2: set rels:
+  for (ent of ents) {
+    for (let key in ent.rels) {
+      let v = ent.rels[key];
+      if (typeof v == typeof "") {
+        // a single
+        if (v.length < 28) {
+          // generated _id.length > 28: it is DPACKEY
+          ent.rels[key] = find_id_in_map(v, nameMap);
+        }
+      } else if (typeof v == typeof []) {
+        let ar = [];
+        for (let e of v) {
+          ar.push(find_id_in_map(e, nameMap));
+        }
+        ent.rels[key] = ar.slice();
+      }
+    }
+  }
+  // loop-3: save in db
+  for (ent of ents) {
+    ent.save_db();
+  }
+} // end of function entityLoader()

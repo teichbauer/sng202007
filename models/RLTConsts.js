@@ -121,6 +121,9 @@ export const RL_types = {
   //-----------------
   RL_SPECIFIED_BY: "0012",
   RL_SPECIFIES: "1012",
+  //-----------------
+  RL_ACTED_BY: "0013", // META-RLT-0013-PA9-PA1
+  RL_ACTING_AS: "1013", // META-RLT-1013-PA1-PA9
 };
 
 // -------------------------------------------------------
