@@ -44,6 +44,7 @@ class EntityClass {
   // method save (to DB)
   save_db() {
     let ent = Util.make_entity(this.model, {
+      cid: this.cid,
       cat: this.cat,
       subcat: this.subcat,
       descr: this.card,

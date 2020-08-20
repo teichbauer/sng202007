@@ -118,7 +118,8 @@ export default class Util {
 
   static make_entity = (M, ele, useRandom = true, useTS = true) => {
     if (!ele._id) {
-      ele._id = Util.generate_id("META", ele.cat, ele.subcat, useRandom, useTS);
+      let cid = ele.cid || "META";
+      ele._id = Util.generate_id(cid, ele.cat, ele.subcat, useRandom, useTS);
     }
     if (!ele.card) {
       ele.card = {
