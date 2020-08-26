@@ -10,8 +10,10 @@ _id: <DB-name:4>-<cat:3>-<subcat:4>-<random:6>-<TS:13>
 1.1 PA1: single person 
     subcat:
     - AINA : A:AC - after christ, I(18) * 100 1800 year
+             U: unknown epoch, U: unknown century
              NA: north america
              EA: east asia 
+             UU: unknown location
 
 1.2 PA2: pair (2 persons) 
 1.3 PA3: group 

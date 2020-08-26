@@ -7,124 +7,122 @@
  * ********************************************************/
 import assert from "assert";
 
-export const RL_types = {
-  RL_PART_OF: "0000",
-  RL_HAS_PART: "1000",
-  //-----------------
-  RL_MADE_BY: "0001",
-  RL_MADE: "1001",
-  //-----------------
-  RL_MADE_OF: "0002",
-  RL_MADE: "1002",
-  //-----------------
-  RL_CONNECTED_WITH: "0003",
-  RL_CONNECT_WITH: "1003",
-  //-----------------
-  RL_BOSSED_BY: "0004",
-  RL_BOSS_OF: "1004",
-  //-----------------
-  RL_MALE_OF: "0005",
-  RL_HAS_MALE: "1005",
-  //-----------------
-  RL_FEMALE_OF: "0006",
-  RL_HAS_FEMALE: "1006",
-  //-----------------
-  RL_CHILD_OF: "0007",
-  RL_HAS_CHILD: "1007",
-  //-----------------
-  RL_OWNED_BY: "0008",
-  RL_OWNING: "1008",
-  //-----------------
-  RL_CONTAINED_BY: "0009",
-  RL_CONTAINING: "1009",
-  //-----------------
-  RL_DOCUMENT_OF: "000A",
-  RL_HAS_DOCUMENT: "100A",
-  //-----------------
-  RL_BELONG_TO: "000B",
-  RL_POSSESS: "100B",
-  //-----------------
-  RL_ASSOCIATED_WITH: "000C",
-  RL_ASSOCIATES: "1001",
-  //-----------------
-  RL_RESIDED_BY: "000D",
-  RL_RESIDES: "100D",
-  //-----------------
-  RL_INSIDE_OF: "000E",
-  RL_ENCOMPASSES: "100E",
-  //-----------------
-  RL_CONTROLED_BY: "000F",
-  RL_cONTROLS: "100F",
-  //-----------------
-  RL_OVERSEEN_BY: "000G",
-  RL_OVERSEES: "100G",
-  //-----------------
-  RL_OBEYING_TO: "000H",
-  RL_COMMANDS: "100H",
-  //-----------------
-  RL_MARR_BOND_OF: "000I",
-  RL_HAS_MARR_BOND: "100I",
-  //-----------------
-  RL_RULED_BY: "000J",
-  RL_RULES: "100J",
-  //-----------------
-  RL_GOVERNED_BY: "000K",
-  RL_GOVERNS: "100K",
-  //-----------------
-  RL_SUBORDINATED_TO: "000L",
-  RL_SUPERVISES: "100L",
-  //-----------------
-  RL_MASTERED_BY: "000M",
-  RL_MASTERS: "100M",
-  //-----------------
-  RL_DEPENDENT_ON: "000N",
-  RL_NECESSARY_TO: "100N",
-  //-----------------
-  RL_AUTHORED_BY: "000P",
-  RL_AUTHORS: "100P",
-  //-----------------
-  RL_COMMENTED_BY: "000Q",
-  RL_COMMENTS: "100Q",
-  //-----------------
-  RL_EVALUATED_BY: "000R",
-  RL_EVALUATES: "100R",
-  //-----------------
-  RL_MEASURED_BY: "000S",
-  RL_MADE_MEASUREMENT_TO: "100S",
-  //-----------------
-  RL_MEASURED_WITH: "000T",
-  RL_MEASURES: "100T",
-  //-----------------
-  RL_QA_CONTROLLED_BY: "000U",
-  RL_QA_CONTROLLS: "100U",
-  //-----------------
-  RL_APPROVED_BY: "000V",
-  RL_APPROVES: "100V",
-  //-----------------
-  RL_PURCHASED_BY: "000W",
-  RL_PURCHASES: "100W",
-  //-----------------
-  RL_INSTANCE_OF: "000X",
-  RL_GENERALIZATION_OF: "100X",
-  //-----------------
-  RL_SUBCLASS_OF: "000Y",
-  RL_SUPERCLASS_OF: "100Y",
-  //-----------------
-  RL_SUPPLIED_BY: "000Z",
-  RL_SUPPLIES: "100Z",
-  //-----------------
-  RL_OFFERED_BY: "0010",
-  RL_OFFERS: "1010",
-  //-----------------
-  RL_DELIVERED_BY: "0011",
-  RL_DELIVERS: "1011",
-  //-----------------
-  RL_SPECIFIED_BY: "0012",
-  RL_SPECIFIES: "1012",
-  //-----------------
-  RL_ACTED_BY: "0013", // META-RLT-0013-PA9-PA1
-  RL_ACTING_AS: "1013", // META-RLT-1013-PA1-PA9
-};
+export const RL_PART_OF = "0000";
+export const RL_HAS_PART = "1000";
+//-----------------
+export const RL_MADE_BY = "0001";
+export const RL_MAKES = "1001";
+//-----------------
+export const RL_MADE_OF = "0002";
+//export const RL_MADE = "1002";
+//-----------------
+export const RL_CONNECTED_WITH = "0003";
+export const RL_CONNECT_WITH = "1003";
+//-----------------
+export const RL_BOSSED_BY = "0004";
+export const RL_BOSS_OF = "1004";
+//-----------------
+export const RL_MALE_OF = "0005";
+export const RL_HAS_MALE = "1005";
+//-----------------
+export const RL_FEMALE_OF = "0006";
+export const RL_HAS_FEMALE = "1006";
+//-----------------
+export const RL_CHILD_OF = "0007";
+export const RL_HAS_CHILD = "1007";
+//-----------------
+export const RL_OWNED_BY = "0008";
+export const RL_OWNING = "1008";
+//-----------------
+export const RL_CONTAINED_BY = "0009";
+export const RL_CONTAINING = "1009";
+//-----------------
+export const RL_DOCUMENT_OF = "000A";
+export const RL_HAS_DOCUMENT = "100A";
+//-----------------
+export const RL_BELONG_TO = "000B";
+export const RL_POSSESS = "100B";
+//-----------------
+export const RL_ASSOCIATED_WITH = "000C";
+export const RL_ASSOCIATES = "1001";
+//-----------------
+export const RL_RESIDED_BY = "000D";
+export const RL_RESIDES = "100D";
+//-----------------
+export const RL_INSIDE_OF = "000E";
+export const RL_ENCOMPASSES = "100E";
+//-----------------
+export const RL_CONTROLED_BY = "000F";
+export const RL_cONTROLS = "100F";
+//-----------------
+export const RL_OVERSEEN_BY = "000G";
+export const RL_OVERSEES = "100G";
+//-----------------
+export const RL_OBEYING_TO = "000H";
+export const RL_COMMANDS = "100H";
+//-----------------
+export const RL_MARR_BOND_OF = "000I";
+export const RL_HAS_MARR_BOND = "100I";
+//-----------------
+export const RL_RULED_BY = "000J";
+export const RL_RULES = "100J";
+//-----------------
+export const RL_GOVERNED_BY = "000K";
+export const RL_GOVERNS = "100K";
+//-----------------
+export const RL_SUBORDINATED_TO = "000L";
+export const RL_SUPERVISES = "100L";
+//-----------------
+export const RL_MASTERED_BY = "000M";
+export const RL_MASTERS = "100M";
+//-----------------
+export const RL_DEPENDENT_ON = "000N";
+export const RL_NECESSARY_TO = "100N";
+//-----------------
+export const RL_AUTHORED_BY = "000P";
+export const RL_AUTHORS = "100P";
+//-----------------
+export const RL_COMMENTED_BY = "000Q";
+export const RL_COMMENTS = "100Q";
+//-----------------
+export const RL_EVALUATED_BY = "000R";
+export const RL_EVALUATES = "100R";
+//-----------------
+export const RL_MEASURED_BY = "000S";
+export const RL_MADE_MEASUREMENT_TO = "100S";
+//-----------------
+export const RL_MEASURED_WITH = "000T";
+export const RL_MEASURES = "100T";
+//-----------------
+export const RL_QA_CONTROLLED_BY = "000U";
+export const RL_QA_CONTROLLS = "100U";
+//-----------------
+export const RL_APPROVED_BY = "000V";
+export const RL_APPROVES = "100V";
+//-----------------
+export const RL_PURCHASED_BY = "000W";
+export const RL_PURCHASES = "100W";
+//-----------------
+export const RL_INSTANCE_OF = "000X";
+export const RL_GENERALIZATION_OF = "100X";
+//-----------------
+export const RL_SUBCLASS_OF = "000Y";
+export const RL_SUPERCLASS_OF = "100Y";
+//-----------------
+export const RL_SUPPLIED_BY = "000Z";
+export const RL_SUPPLIES = "100Z";
+//-----------------
+export const RL_OFFERED_BY = "0010";
+export const RL_OFFERS = "1010";
+//-----------------
+export const RL_DELIVERED_BY = "0011";
+export const RL_DELIVERS = "1011";
+//-----------------
+export const RL_SPECIFIED_BY = "0012";
+export const RL_SPECIFIES = "1012";
+//-----------------
+export const RL_ACTED_BY = "0013"; // META-RLT-0013-PA9-PA1
+export const RL_ACTING_AS = "1013"; // META-RLT-1013-PA1-PA9
 
 // -------------------------------------------------------
 // get _id of a document in RLT collection in a META:
@@ -172,5 +170,3 @@ export const reverse_RLT_id = (
     return `${splt[0]}-${splt[1]}-${splt[3]}-${splt[2]}-${subcat}`;
   }
 };
-
-//export RL_types;

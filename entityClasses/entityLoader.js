@@ -6,19 +6,13 @@
  * entityLoader.js
  * ********************************************************/
 
-import { DPACKEY, pas } from "./sample_data/pa_sample1.js";
+// import { DPACKEY, pas } from "./sample_data/pa_sample1.js";
 import Util from "../models/util.js";
 import PAClass from "./PAClass.js";
 // import fs from "fs.js";
 
 const [cid, load_number] = DPACKEY.split("-");
 
-// fs.writeFile('/etc/doesntexist', 'abc', function (err,data) {
-//     if (err) {
-//       return console.log(err);
-//     }
-//     console.log(data);
-//   });
 const fsCallback = (err, data) => {
   if (err) {
     return console.log(err);
@@ -31,7 +25,7 @@ const fsWriteLog = function (fname, data, callback) {};
 
 let log_lines;
 
-export default function entityLoader() {
+export default function entityLoader(cid, pas) {
   const find_id_in_map = (v, map) => {
     if (v in map) {
       return map[v];

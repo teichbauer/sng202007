@@ -63,6 +63,7 @@ const EntitySchema = new Schema({
     type: String, // <4>-<3>-<6>-<13>, total: 26 chars
     required: true,
   },
+  TS: Schema.Types.Number,
   cat: { type: String, required: true }, // 3 char, in index
   subcat: { type: String, required: true }, // 4 char, in index
   card: {

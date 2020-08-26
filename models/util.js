@@ -79,6 +79,11 @@ export default class Util {
     return `META-RLT-${cat1}-${cat2}-${rltype}`;
   }
 
+  static getTS() {
+    // TS: time-stamp from getTime()/1000 -> secs. It is UTC
+    return Math.trunc(new Date().getTime() / 1000);
+  }
+
   static generate_id(
     custid, // 4 char customer-id(db-name) ACSII string
     cat, // 3 char category-id
@@ -120,6 +125,9 @@ export default class Util {
     if (!ele._id) {
       let cid = ele.cid || "META";
       ele._id = Util.generate_id(cid, ele.cat, ele.subcat, useRandom, useTS);
+    }
+    if (!ele.TS) {
+      ele.TS = Util.getTS();
     }
     if (!ele.card) {
       ele.card = {
