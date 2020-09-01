@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import path from "path";
 
+import LDManager from './LDManager.js';
 import items from "./routes/api/items.js";
 
 // import init-function for initiate metas into db
@@ -17,7 +18,6 @@ app.use(bodyParser.json());
 import dbURI from "./config/keys.js";
 const db_conn_string = dbURI.mongoURI;
 // const db = 'mongodb://dbservice:27017/mern';
-// const db = 'mongodb://localhost:27017/mern';
 
 // since "type: module" put in pack.json, __direname became undefined
 // work-around here:
@@ -49,11 +49,12 @@ app.get("/index.html", (req, res) => {
   res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
 });
 
-import test from "./entityClasses/entityTest.js";
+// import test from "./entityClasses/entityTest.js";
 
 app.get("/pas", (req, res) => {
   console.log("loading pas into db...");
-  test();
+  let ldmgr = new LDManager('TC6H');
+  ldmgr.load_pas();
 });
 
 const port = process.env.PORT || 5000;

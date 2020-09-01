@@ -19,6 +19,7 @@
     "concurrently": "^5.2.0",
     "express": "^4.17.1",
     "fs": "0.0.1-security",
+    "json-beautify": "^1.1.1",
     "mongoose": "^5.9.23"
   },
   "devDependencies": {

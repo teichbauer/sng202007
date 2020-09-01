@@ -8,15 +8,15 @@
 
 import EntityClass from "./EntityClass.js";
 import Meta from "../models/Meta.js";
-import { RL_types, get_RLT_id, reverse_RLT_id } from "../models/RLTConsts.js";
+import * as R from "../models/RLTConsts.js";
 
 const PA = Meta.PA;
 // -------------------------------------------------------------
-const CHILD_OF = get_RLT_id(RL_types.RL_CHILD_OF, "PA1", "PA2");
-const HAS_CHILD = reverse_RLT_id(CHILD_OF);
-const HAS_MARR_BOND = get_RLT_id(RL_types.RL_HAS_MARR_BOND, "PA1", "PA2");
-const HAS_MALE = get_RLT_id(RL_types.RL_HAS_MALE, "PA2", "PA1");
-const HAS_FEMALE = get_RLT_id(RL_types.RL_HAS_FEMALE, "PA2", "PA1");
+const CHILD_OF = R.get_RLT_id(R.RL_CHILD_OF, "PA1", "PA2");
+const HAS_CHILD = R.reverse_RLT_id(CHILD_OF);
+const HAS_MARR_BOND = R.get_RLT_id(R.RL_HAS_MARR_BOND, "PA1", "PA2");
+const HAS_MALE = R.get_RLT_id(R.RL_HAS_MALE, "PA2", "PA1");
+const HAS_FEMALE = R.get_RLT_id(R.RL_HAS_FEMALE, "PA2", "PA1");
 
 export default class PAClass extends EntityClass {
   // constructor(cid, cat, subcat, card, _id = null) {

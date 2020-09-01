@@ -128,21 +128,10 @@ export const RL_ACTING_AS = "1013"; // META-RLT-1013-PA1-PA9
 // get _id of a document in RLT collection in a META:
 //     META-RLT-<cat1:3>-<cat2:3>-<rl-type:4>
 // -------------------------------------------------------
-export const get_RLT_id = (rltype, cat1, cat2) => {
+export const get_RLT_id = (subcat_string, cat1, cat2) => {
   // all three must be given
-  if (!rltype || !cat1 || !cat2) return "";
-
-  let subcat_string;
-  if (rltype in RL_types) {
-    subcat_string = RL_types[rltype];
-    return `META-RLT-${cat1}-${cat2}-${subcat_string}`;
-  } // rltype is a subcat-string like "000P" already
-  else if (Object.values(RL_types).indexOf(rltype) > -1) {
-    subcat_string = rltype;
-    return `META-RLT-${cat1}-${cat2}-${subcat_string}`;
-  } else {
-    return "";
-  }
+  if (!subcat_string || !cat1 || !cat2) return "";
+  return `META-RLT-${cat1}-${cat2}-${subcat_string}`;
 };
 
 export const reverse_RLT_id = (

@@ -9,23 +9,10 @@
 // import { DPACKEY, pas } from "./sample_data/pa_sample1.js";
 import Util from "../models/util.js";
 import PAClass from "./PAClass.js";
-// import fs from "fs.js";
-
-const [cid, load_number] = DPACKEY.split("-");
-
-const fsCallback = (err, data) => {
-  if (err) {
-    return console.log(err);
-  } else {
-    console.log("write log file done.");
-  }
-};
-
-const fsWriteLog = function (fname, data, callback) {};
 
 let log_lines;
 
-export default function entityLoader(cid, pas) {
+export default function entityLoader(cid, pas, nameMap) {
   const find_id_in_map = (v, map) => {
     if (v in map) {
       return map[v];
@@ -35,7 +22,6 @@ export default function entityLoader(cid, pas) {
     }
   };
 
-  let nameMap = {};
   let ent;
   // let card;
   let ents = [];

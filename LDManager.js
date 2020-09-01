@@ -27,11 +27,15 @@
  *   LDManager.js offers methods for
  *     - generate repo<nnn>.js a snapshot of DB, combine from repos
  */
-import fs from "fs";
 import entityLoader from "./entityClasses/entityLoader.js";
 
-let cid = "TC6H";
-let pas_data = fs.readFileSync(`./data/${cid}/pas.js`);
-let pas = JSON.parse(pas_data);
+export default class LDManager {
+    constructor(cid, nameMap){
+        this.cid = cid;
+        this.nameMap = nameMap;
+    }
 
-entityLoader(cid, pas);
+    load_ents(ents){
+        entityLoader(this.cid, ents, this.nameMap);
+    }
+}

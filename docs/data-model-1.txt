@@ -70,12 +70,15 @@ DC2: documentation
     - 0002: mixture of mime
     - 0003: folder
     - 0004: media-file 
+    - 0005: editable text
+    - 0006: editable markup
 
 DC3: descriptive text 
 DC4: text + graphics
 DC5: multi-media docs
 DC6: reference
 DC7: program file, configuration 
+DC8: credential record
 
 4. CA concepts, ideas
 -----------------------------------------
@@ -124,10 +127,15 @@ LO3: building
 LO4: work-post
 LO5: address 
 
-9. SK: skill, ability
+9. CA: skill, capability, ability
 --------------------------
-SK1: inborn skill
-SK2: learned skill
+CA1: inborn skill
+CA2: learned skill
+
+10. RE: reoccuring event
+-------------------------
+RE1: Personal anniversity: birth-day, death-day, marriage-day,...
+RE2: Org-related anniversity
 
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++
