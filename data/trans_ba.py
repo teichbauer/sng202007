@@ -13,7 +13,7 @@ def transBa(ba, dics, idmap):
             _rels["1006"] = v # RL_HAS_FEMALE
         elif k == "children":
             _rels["1007"] = v # RL_HAS_CHILD
-    dic {
+    dic = {
         '_id' : genID(_cid, _cat, _subcat),
         'cat': _cat,
         'subcat': _subcat,

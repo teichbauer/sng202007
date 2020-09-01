@@ -80,19 +80,19 @@ DC6: reference
 DC7: program file, configuration 
 DC8: credential record
 
-4. CA concepts, ideas
+4. AB abstract concepts, ideas
 -----------------------------------------
-CA1: general name/classification
-CA2: color
-CA3: physical form style
-CA4: sound 
-CA5: doctrine, principle
-CA6: ideology, philosophy
-CA7: methodology
-CA8: doc style, e.G.: methology, fiction, documentory
+AB1: general name/classification
+AB2: color
+AB3: physical form style
+AB4: sound 
+AB5: doctrine, principle
+AB6: ideology, philosophy
+AB7: methodology
+AB8: doc style, e.G.: methology, fiction, documentory
      journalism, fairy tale, graphic art,
-CA9: price
-CAA: ranking qualifier
+AB9: price
+ABA: ranking qualifier
 
 5. AC account, agreed-association 
 -----------------------------------------

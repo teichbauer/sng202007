@@ -93,5 +93,5 @@ def transPa(pa, dics, idmap):
         dics.append(ac1)
         
     dics.append(dic)
-    idmap[pa['_id'] = dic['_id']
+    idmap[pa['_id']] = dic['_id']
 

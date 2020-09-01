@@ -69,23 +69,29 @@ def b64LS(msg):
     else:
         return msg, b64EC(msg)
     
+def flatLSDic(lsdic):
+    lst = []
+    for k,v in lsdic.items():
+        lst.append(k + ':' + v)
+    return '||'.join(lst)
+
 def b64LSExtract(msg, lang=defaultLS):
     if type(msg) == type({}):
-        if _lang in msg:
+        if lang in msg:
             return b64DC(msg[lang])
         else:
             _lang = list(msg.keys())[0]
             return b64DC(msg[_lang])
     lst = msg.split('||')
-        firstLS = ''
-        for e in lst:
-            if e.count(':') > 0: # : in it
-                _lang, m = e.split(':')
-                if len(firstLS) == 0:
-                    firstLS = m
-                if _lang == lang:
-                    return b64DC(m)
-        return b64DC(firstLS)
+    firstLS = ''
+    for e in lst:
+        if e.count(':') > 0: # : in it
+            _lang, m = e.split(':')
+            if len(firstLS) == 0:
+                firstLS = m
+            if _lang == lang:
+                return b64DC(m)
+    return b64DC(firstLS)
 
 def procDescr(descr):
     if 'LSS' not in descr:
@@ -100,7 +106,7 @@ def procDescr(descr):
         
 def nameFromDescr(descr):
     name = descr.get('NAME','')
-    if cardNamePattern.search(name):
+    if LSPattern.search(name):
         res = ''
         firstLS = None
         splt = name.split('||')

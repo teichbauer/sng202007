@@ -1,5 +1,9 @@
 from procInitialData import b64DC, b64EC, genID, currentTS
 from trans_ce import transCe
+from trans_pa import transPa
+from trans_ba import transBa
+from trans_it import transIt
+from trans_ip import transIp
 
 #fid = 'TC6H8EU'
 #datafile = 'TC6H8EU110-20181031.data'
